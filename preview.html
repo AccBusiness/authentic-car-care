@@ -1,0 +1,2091 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Authentic Car Care — Mobile Detail · PEI</title>
+  <meta name="description" content="Mobile car detailing across Prince Edward Island. Express, Interior, Exterior, and Complete Care — we come to your driveway." />
+  <link rel="icon" href="project/assets/logo.png" type="image/png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+/* ========== Authentic Car Care — landing styles ========== */
+:root {
+  --bg: #ffffff;
+  --bg-2: #f5f6f8;
+  --surface: #f0f2f5;
+  --surface-2: #e6e9ed;
+  --line: rgba(0,0,0,0.07);
+  --line-strong: rgba(0,0,0,0.13);
+  --fg: #0e1117;
+  --fg-dim: #4a5060;
+  --fg-mute: #7a7f8c;
+  --ice: #2678b0;
+  --ice-bright: #3a8cc4;
+  --ice-deep: #1a5f8f;
+  --ice-glow: rgba(38, 120, 176, 0.20);
+  --black: #000;
+  --radius-s: 10px;
+  --radius-m: 18px;
+  --radius-l: 28px;
+  --radius-xl: 40px;
+  --shadow-ice: 0 0 0 1px rgba(38,120,176,0.25), 0 24px 60px -20px rgba(26,95,143,0.18);
+}
+
+* { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+html, body { margin:0; padding:0; background: var(--bg); color: var(--fg); }
+body {
+  font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+  overflow-x: hidden;
+}
+
+.display {
+  font-family: 'Josefin Sans', 'Manrope', sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+.mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+img { display: block; max-width: 100%; }
+
+/* ---------- Layout ---------- */
+.wrap { width: min(1240px, 92vw); margin: 0 auto; }
+section { position: relative; padding: 120px 0; }
+@media (max-width: 720px){ section { padding: 80px 0; } }
+
+/* ---------- Nav ---------- */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 60;
+  padding: 18px 0;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.92), rgba(255,255,255,0));
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+.nav-inner { display:flex; align-items:center; justify-content:space-between; gap:24px; }
+.brand { display:flex; align-items:center; gap:12px; }
+.brand-mark { width: 42px; height: 42px; border-radius: 50%; background: #fff; border: 1px solid var(--line); display:grid; place-items:center; padding: 4px; }
+.brand-mark img { width: 100%; height: 100%; object-fit: contain; }
+.brand-name { display:flex; flex-direction:column; line-height: 1; }
+.brand-name b { font-family:'Josefin Sans',sans-serif; font-size: 17px; letter-spacing: 0.08em; font-weight: 300; text-transform: uppercase; }
+.brand-name span { font-size: 11px; color: var(--ice); margin-top: 3px; letter-spacing: 0.18em; text-transform: uppercase; }
+
+.nav-links { display:flex; gap: 28px; align-items:center; }
+.nav-links a { font-size: 14px; color: var(--fg-dim); transition: color .2s; }
+.nav-links a:hover { color: var(--fg); }
+@media (max-width: 820px){ .nav-links { display:none; } }
+
+.btn {
+  display:inline-flex; align-items:center; gap: 10px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-weight: 600; font-size: 14px;
+  border: 1px solid var(--line-strong);
+  background: rgba(0,0,0,0.03);
+  transition: all .2s ease;
+}
+.btn:hover { background: rgba(0,0,0,0.07); transform: translateY(-1px); }
+.btn-ice {
+  background: var(--ice);
+  color: #061018;
+  border-color: transparent;
+  box-shadow: 0 10px 30px -10px var(--ice-glow);
+}
+.btn-ice:hover { background: var(--ice-bright); box-shadow: 0 18px 40px -10px var(--ice-glow); }
+.btn-lg { padding: 16px 28px; font-size: 15px; }
+
+/* ---------- Hero cinematic ---------- */
+.hero-v2 {
+  min-height: 100vh;
+  padding: 0;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  background: #000;
+}
+.hero-vignette {
+  position: absolute; inset: 0; z-index: 4; pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 40%, transparent 30%, rgba(0,0,0,0.55) 80%),
+    linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, transparent 22%, transparent 55%, rgba(0,0,0,0.98) 100%);
+}
+.stage-cinema {
+  position: absolute; inset: 0; z-index: 1;
+  display: grid; place-items: center;
+  overflow: hidden;
+}
+.bat-halo,
+.bat-signal,
+.bat-signal-sharp,
+.bat-signal-glow,
+.hero-car-svg-wrap,
+.hero-car-svg { display: none; }
+
+.hero-bg-img {
+  position: absolute; inset: 0; z-index: 2;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+}
+.hero-floor {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 40vh; z-index: 3;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 50%, #000 100%);
+  pointer-events: none;
+}
+.hero-content {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  z-index: 10;
+  padding: 0 0 90px;
+  text-align: center;
+  color: #fff;
+}
+.hero-content .eyebrow { margin: 0 auto; background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); color: rgba(255,255,255,0.8); }
+.hero-content .eyebrow .dot { background: var(--ice); }
+.hero-content h1 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 200;
+  font-size: clamp(52px, 7.5vw, 110px);
+  letter-spacing: 0.12em;
+  line-height: 0.95;
+  margin: 22px auto 22px;
+  max-width: 16ch;
+  text-transform: uppercase;
+  color: #fff;
+}
+.hero-content h1 em { font-style: normal; color: var(--ice); }
+.hero-content p.lead { font-size: clamp(15px, 1.3vw, 18px); color: rgba(255,255,255,0.6); max-width: 500px; margin: 0 auto 32px; }
+.hero-content .hero-cta { display:flex; gap: 14px; flex-wrap: wrap; justify-content: center; align-items: center; }
+.hero-content .btn { border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.08); color: #fff; }
+.hero-content .btn:hover { background: rgba(255,255,255,0.15); }
+.hero-content .btn-ice { background: var(--ice); border-color: transparent; color: #061018; }
+.hero-content .btn-ice:hover { background: var(--ice-bright); }
+
+@media (max-width: 720px){
+  .hero-content { padding-bottom: 60px; }
+}
+
+.eyebrow {
+  display:inline-flex; align-items:center; gap:10px;
+  padding: 8px 14px; border-radius: 999px;
+  background: rgba(38,120,176,0.08);
+  border: 1px solid rgba(38,120,176,0.18);
+  color: var(--ice);
+  font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
+  font-weight: 600;
+}
+.eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ice); box-shadow: 0 0 10px var(--ice); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity: 0.4; } }
+
+.hero-stat .num { font-family:'Josefin Sans',sans-serif; font-size: 32px; font-weight: 700; letter-spacing: -0.03em; }
+.hero-stat .lbl { font-size: 12px; color: var(--fg-mute); letter-spacing: 0.14em; text-transform: uppercase; margin-top: 4px; }
+
+/* ---------- Section title ---------- */
+.section-title {
+  display:flex; justify-content: space-between; align-items: flex-end; gap: 30px;
+  margin-bottom: 60px; flex-wrap: wrap;
+}
+.section-title h2 {
+  font-family:'Josefin Sans',sans-serif;
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 300; letter-spacing: 0.06em; line-height: 1.05; margin: 12px 0 0;
+  text-transform: uppercase;
+  max-width: 760px;
+}
+.section-title h2 em { font-style: normal; color: var(--ice); }
+.section-kicker { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ice); font-weight: 600; }
+.section-title .sub { color: var(--fg-dim); font-size: 16px; max-width: 360px; }
+
+/* ---------- Services (flip cards) ---------- */
+.services-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;
+}
+@media (max-width: 1000px){ .services-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px){ .services-grid { grid-template-columns: 1fr; } }
+
+.svc-card-wrap {
+  position: relative;
+  height: 480px;
+  perspective: 1400px;
+  cursor: pointer;
+}
+.svc-card-inner {
+  position: relative;
+  width: 100%; height: 100%;
+  transform-style: preserve-3d;
+  transition: transform .7s cubic-bezier(.2,.7,.2,1);
+}
+.svc-card-wrap:hover .svc-card-inner { transform: rotateY(180deg); }
+
+.svc-face {
+  position: absolute; inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: linear-gradient(180deg, var(--surface), var(--bg-2));
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  padding: 28px;
+  display: flex; flex-direction: column;
+  transition: border-color .3s, box-shadow .3s;
+  overflow: hidden;
+}
+.svc-front {
+  background:
+    radial-gradient(ellipse at top right, rgba(38,120,176,0.04), transparent 60%),
+    linear-gradient(180deg, var(--surface), var(--bg-2));
+}
+.svc-back {
+  transform: rotateY(180deg);
+  background:
+    radial-gradient(ellipse at top, rgba(38,120,176,0.06), transparent 50%),
+    linear-gradient(180deg, var(--surface-2), var(--bg-2));
+  border-color: rgba(38,120,176,0.2);
+}
+
+.svc-card-wrap.selected .svc-face { border-color: var(--ice); }
+.svc-card-wrap:hover .svc-face { box-shadow: var(--shadow-ice); }
+
+.svc-num { font-family:'JetBrains Mono', monospace; font-size: 11px; color: var(--fg-mute); letter-spacing: 0.2em; }
+.svc-icon {
+  margin: 14px 0 22px;
+  width: 56px; height: 56px;
+  display: grid; place-items: center;
+  border-radius: 14px;
+  background: rgba(38,120,176,0.08);
+  border: 1px solid rgba(38,120,176,0.15);
+}
+.svc-face h3 {
+  font-family:'Josefin Sans',sans-serif;
+  font-size: clamp(22px, 1.6vw, 26px);
+  letter-spacing: 0.04em; font-weight: 400;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+  line-height: 1.05;
+}
+.svc-face .tag { font-size: 13px; color: var(--fg-dim); margin-bottom: 18px; }
+
+.price-block { margin-top: auto; display: flex; flex-direction: column; gap: 2px; }
+.price-block .from {
+  font-size: 11px; color: var(--ice); font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+}
+.price-block .price {
+  font-family:'Josefin Sans',sans-serif;
+  font-size: 44px; font-weight: 700; letter-spacing: -0.03em; color: var(--ice);
+  line-height: 1;
+}
+
+.svc-hint {
+  margin-top: 16px;
+  font-size: 11px; color: var(--fg-mute);
+  letter-spacing: 0.12em; text-transform: uppercase;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+
+.svc-back ul { padding: 0; margin: 14px 0 20px; list-style:none; }
+.svc-back ul li {
+  font-size: 14px; color: var(--fg);
+  padding: 9px 0; padding-left: 24px; position: relative;
+  border-bottom: 1px solid var(--line);
+}
+.svc-back ul li:last-child { border-bottom: 0; }
+.svc-back ul li::before {
+  content:'✓'; position: absolute; left: 0; top: 9px;
+  color: var(--ice); font-weight: 700; font-size: 13px;
+}
+
+.check {
+  position: absolute; top: 22px; right: 22px;
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 1.5px solid var(--line-strong);
+  display: grid; place-items: center; transition: all .25s;
+}
+.svc-card-wrap.selected .check { background: var(--ice); border-color: var(--ice); }
+.svc-card-wrap.selected .check svg { stroke: #061018; opacity: 1; }
+.check svg { stroke: transparent; opacity: 0; transition: opacity .25s; }
+
+/* Touch fallback — show back-side on tap (no hover) */
+@media (hover: none) {
+  .svc-card-wrap.selected .svc-card-inner { transform: rotateY(180deg); }
+  .svc-hint { display: none; }
+}
+
+/* ---------- Add-ons ---------- */
+.addons-card {
+  margin-top: 24px;
+  background: linear-gradient(135deg, rgba(38,120,176,0.05), rgba(38,120,176,0.02));
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  padding: 32px;
+}
+.addons-header { display:flex; justify-content: space-between; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
+.addons-header h3 { font-family:'Josefin Sans',sans-serif; font-size: 24px; letter-spacing: -0.02em; margin: 0; }
+.addons-header p { color: var(--fg-dim); font-size: 14px; margin: 4px 0 0; }
+.addons-row { display:flex; gap: 14px; flex-wrap: wrap; margin-top: 24px; }
+.addon-chip {
+  display:flex; align-items:center; gap: 12px;
+  padding: 14px 22px;
+  border-radius: 999px;
+  border: 1.5px solid var(--line-strong);
+  background: rgba(0,0,0,0.02);
+  transition: all .2s;
+  font-size: 14px; font-weight: 500;
+}
+.addon-chip:hover:not(:disabled) { border-color: rgba(38,120,176,0.4); }
+.addon-chip.on { background: var(--ice); color: #061018; border-color: var(--ice); box-shadow: 0 8px 24px -8px var(--ice-glow); }
+.addon-chip:disabled { opacity: 0.4; cursor: not-allowed; }
+.addon-chip .plus { font-family:'JetBrains Mono', monospace; font-weight: 700; color: var(--ice); }
+.addon-chip.on .plus { color: #061018; }
+.addon-chip .note { font-size: 11px; color: var(--fg-mute); }
+.addon-chip.on .note { color: rgba(6,16,24,0.6); }
+
+/* ---------- Quote bar (sticky summary) ---------- */
+.quote-bar {
+  margin-top: 30px;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  padding: 22px 28px;
+  display:flex; align-items: center; justify-content: space-between; gap: 24px;
+  flex-wrap: wrap;
+}
+.quote-bar .left { display:flex; flex-direction:column; gap: 4px; }
+.quote-bar .label { font-size: 11px; letter-spacing: 0.2em; color: var(--fg-mute); text-transform: uppercase; }
+.quote-bar .total { font-family:'Josefin Sans',sans-serif; font-size: 40px; font-weight: 700; letter-spacing: -0.03em; }
+.quote-bar .total em { color: var(--ice); font-style: normal; }
+.quote-bar .breakdown { font-size: 13px; color: var(--fg-dim); }
+
+/* ---------- Before/After menu ---------- */
+.menu-tabs { display:flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+.menu-tab {
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  color: var(--fg-dim);
+  font-size: 13px; font-weight: 500;
+  transition: all .2s;
+}
+.menu-tab:hover { color: var(--fg); }
+.menu-tab.on { background: var(--fg); color: #07080a; border-color: var(--fg); }
+
+.ba-wrap {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start;
+}
+@media (max-width: 900px){ .ba-wrap { grid-template-columns: 1fr; } }
+
+.ba-stage {
+  position: relative;
+  border-radius: var(--radius-l);
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: #000;
+  border: 1px solid var(--line);
+  user-select: none;
+  cursor: ew-resize;
+  min-height: 0;
+}
+.ba-img { position: absolute; inset: 0; display: grid; place-items: center; }
+.ba-img-after { z-index: 2; }
+.ba-clip { position: absolute; inset: 0; clip-path: inset(0 50% 0 0); transition: clip-path .12s ease-out; will-change: clip-path; }
+.ba-handle {
+  position: absolute; top: 0; bottom: 0; width: 3px; background: var(--ice);
+  box-shadow: 0 0 24px var(--ice-glow);
+  z-index: 5; pointer-events: none;
+  transition: left .12s ease-out;
+}
+.ba-knob {
+  position: absolute; top: 50%; left: 50%;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--ice); color: #061018;
+  display: grid; place-items: center;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 6px rgba(38,120,176,0.15), 0 0 30px var(--ice-glow);
+  font-weight: 700; font-size: 18px;
+}
+.ba-label {
+  position: absolute; top: 18px;
+  padding: 6px 12px; border-radius: 999px;
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700;
+  z-index: 4; backdrop-filter: blur(8px);
+}
+.ba-label.before { left: 18px; background: rgba(0,0,0,0.5); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+.ba-label.after { right: 18px; background: var(--ice); color: #061018; }
+
+.ba-meta {
+  background: linear-gradient(180deg, var(--surface), var(--bg-2));
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  padding: 28px;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.ba-meta .tag-pill {
+  display:inline-flex; padding: 5px 11px; border-radius: 999px;
+  background: rgba(38,120,176,0.08); color: var(--ice);
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 600;
+  width: fit-content;
+}
+.ba-meta h3 { font-family:'Josefin Sans',sans-serif; font-size: clamp(20px, 1.8vw, 26px); letter-spacing: -0.025em; margin: 12px 0 8px; line-height: 1.1; }
+.ba-meta p { color: var(--fg-dim); font-size: 13px; line-height: 1.55; margin: 0 0 16px; }
+.ba-meta .detail-list { display:flex; flex-direction: column; gap: 0; margin: 0 0 14px; }
+.ba-meta .detail-list div { display:flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 12px; }
+.ba-meta .detail-list div:last-child { border-bottom: 0; }
+.ba-meta .detail-list span:first-child { color: var(--fg-mute); letter-spacing: 0.08em; text-transform: uppercase; font-size: 10px; }
+.ba-meta .detail-list span:last-child { color: var(--fg); font-weight: 600; font-family:'JetBrains Mono',monospace; font-size: 11px; }
+.ba-thumbs { display:flex; gap: 8px; margin-top: auto; padding-top: 12px; }
+.ba-thumb {
+  flex: 1; aspect-ratio: 4/3; border-radius: 8px; overflow: hidden; cursor: pointer;
+  border: 2px solid transparent; transition: all .2s; padding: 0;
+  max-height: 64px;
+}
+.ba-thumb.on { border-color: var(--ice); }
+
+/* Placeholder vehicle 'photos' */
+.fake-photo {
+  width: 100%; height: 100%;
+  display: grid; place-items: center;
+  position: relative; overflow: hidden;
+}
+.fake-photo .grain {
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.06), transparent 30%),
+    radial-gradient(circle at 80% 60%, rgba(255,255,255,0.04), transparent 30%);
+}
+.fp-before {
+  background:
+    radial-gradient(ellipse at 50% 70%, #2a2520 0%, #15110d 60%, #0a0807 100%);
+}
+.fp-after {
+  background:
+    radial-gradient(ellipse at 50% 30%, #2b3a47 0%, #142028 50%, #060c10 100%);
+}
+.fake-car {
+  width: 78%; aspect-ratio: 2.4/1;
+  position: relative;
+  filter: drop-shadow(0 30px 40px rgba(0,0,0,0.7));
+}
+.fp-before .dirt {
+  position:absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 60%, rgba(120,90,60,0.5), transparent 25%),
+    radial-gradient(ellipse at 70% 70%, rgba(140,110,80,0.4), transparent 30%),
+    radial-gradient(ellipse at 50% 50%, rgba(80,60,40,0.3), transparent 40%);
+  mix-blend-mode: overlay; pointer-events: none;
+}
+.fp-after .shine {
+  position:absolute; top: 0; left: -50%; width: 200%; height: 100%;
+  background: linear-gradient(60deg, transparent 40%, rgba(255,255,255,0.5) 50%, transparent 60%);
+  animation: shineMove 5s linear infinite;
+  pointer-events: none;
+}
+@keyframes shineMove { from { transform: translateX(-30%);} to { transform: translateX(30%);} }
+
+/* ---------- Booking ---------- */
+.book-wrap {
+  display: grid; grid-template-columns: 1.3fr 1fr; gap: 32px;
+}
+@media (max-width: 1000px){ .book-wrap { grid-template-columns: 1fr; } }
+
+.book-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  padding: 40px;
+}
+.book-steps { display:flex; gap: 8px; margin-bottom: 32px; }
+.book-step {
+  flex: 1; height: 4px; border-radius: 4px; background: var(--line);
+  transition: background .3s;
+}
+.book-step.done, .book-step.active { background: var(--ice); }
+.book-step-label { display:flex; justify-content: space-between; font-size: 11px; color: var(--fg-mute); letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 10px; }
+
+.field { display:flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+.field label { font-size: 12px; color: var(--fg-dim); letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; }
+.field input, .field textarea, .field select {
+  background: var(--bg-2);
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: var(--fg);
+  font: inherit;
+  outline: none;
+  transition: border-color .2s, background .2s;
+}
+.field input:focus, .field textarea:focus, .field select:focus { border-color: var(--ice); }
+.row-2 { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 600px){ .row-2 { grid-template-columns: 1fr; } }
+
+/* Photo drop zone */
+.dropzone {
+  border: 1.5px dashed var(--line-strong);
+  border-radius: var(--radius-m);
+  padding: 36px;
+  text-align: center;
+  background: rgba(0,0,0,0.02);
+  transition: all .25s;
+  cursor: pointer;
+  position: relative;
+}
+.dropzone:hover, .dropzone.dragging { border-color: var(--ice); background: rgba(38,120,176,0.05); }
+.dropzone .icon { width: 56px; height: 56px; margin: 0 auto 14px; border-radius: 14px; background: rgba(185,214,236,0.1); display: grid; place-items: center; }
+.dropzone h4 { margin: 0 0 6px; font-family:'Josefin Sans',sans-serif; font-size: 18px; }
+.dropzone p { margin: 0; color: var(--fg-dim); font-size: 13px; }
+.photo-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px; margin-top: 14px; }
+.photo-thumb {
+  aspect-ratio: 1; border-radius: 12px; overflow: hidden; position: relative;
+  border: 1px solid var(--line); background: var(--bg-2);
+  perspective: 600px;
+}
+.photo-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.photo-thumb .x {
+  position: absolute; top: 6px; right: 6px;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: rgba(0,0,0,0.7); color: #fff;
+  display: grid; place-items: center; font-size: 12px;
+  border: 0; cursor: pointer;
+}
+
+.book-summary {
+  position: sticky; top: 100px;
+  background: linear-gradient(180deg, var(--surface), var(--bg-2));
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  padding: 32px;
+  height: fit-content;
+}
+.book-summary h3 { font-family:'Josefin Sans',sans-serif; font-size: 22px; margin: 0 0 6px; letter-spacing: -0.02em; }
+.book-summary .sub { font-size: 13px; color: var(--fg-dim); margin-bottom: 24px; }
+.sum-row { display:flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.sum-row .lbl { color: var(--fg-dim); }
+.sum-row .val { font-weight: 600; }
+.sum-row.total .val { font-family:'Josefin Sans',sans-serif; font-size: 28px; color: var(--ice); }
+.sum-empty { color: var(--fg-mute); font-size: 13px; padding: 16px 0; text-align: center; }
+
+.book-actions { display:flex; gap: 10px; margin-top: 28px; justify-content: space-between; }
+
+/* Toast / success */
+.toast {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+  background: var(--ice); color: #061018;
+  padding: 14px 24px; border-radius: 999px;
+  font-weight: 600; font-size: 14px;
+  box-shadow: 0 20px 50px -10px var(--ice-glow);
+  z-index: 100;
+  animation: toastIn .3s ease, toastOut .3s ease 3s forwards;
+}
+@keyframes toastIn { from { transform: translate(-50%, 30px); opacity: 0; } }
+@keyframes toastOut { to { transform: translate(-50%, 30px); opacity: 0; } }
+
+/* ---------- Footer ---------- */
+footer {
+  border-top: 1px solid var(--line);
+  padding: 60px 0 40px;
+  background: var(--bg);
+}
+.foot-grid { display:grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px; }
+@media (max-width: 720px){ .foot-grid { grid-template-columns: 1fr 1fr; } }
+.foot-grid h5 { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-mute); margin: 0 0 16px; font-weight: 600; }
+.foot-grid a, .foot-grid p { color: var(--fg); font-size: 14px; display:block; padding: 4px 0; margin: 0; }
+.foot-grid a:hover { color: var(--ice); }
+.foot-bot { display:flex; justify-content: space-between; margin-top: 50px; padding-top: 28px; border-top: 1px solid var(--line); font-size: 12px; color: var(--fg-dim); flex-wrap: wrap; gap: 10px; }
+
+/* Marquee */
+.marquee {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 22px 0; overflow: hidden; white-space: nowrap;
+}
+.marquee-track { display:inline-flex; gap: 60px; animation: marquee 30s linear infinite; }
+.marquee span { font-family:'Josefin Sans',sans-serif; font-size: 32px; letter-spacing: 0.06em; font-weight: 300; text-transform: uppercase; }
+.marquee span em { color: var(--ice); font-style: normal; font-size: 18px; vertical-align: middle; margin-left: 8px; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ---------- FAQ ---------- */
+.faq-list {
+  display: flex; flex-direction: column;
+  border-top: 1px solid var(--line);
+}
+.faq-item { border-bottom: 1px solid var(--line); }
+.faq-q {
+  width: 100%;
+  display: flex; align-items: center; gap: 24px;
+  padding: 26px 4px;
+  text-align: left;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+  transition: color .25s;
+}
+.faq-q:hover { color: var(--ice); }
+.faq-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; color: var(--fg-mute); letter-spacing: 0.16em;
+  flex-shrink: 0; width: 36px;
+}
+.faq-text { flex: 1; }
+.faq-icon {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  display: grid; place-items: center;
+  color: var(--ice); flex-shrink: 0;
+  transition: transform .35s ease, border-color .25s, background .25s;
+}
+.faq-item.open .faq-icon { transform: rotate(45deg); background: var(--ice); color: #061018; border-color: var(--ice); }
+.faq-a {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .4s ease;
+}
+.faq-item.open .faq-a { grid-template-rows: 1fr; }
+.faq-a-inner {
+  overflow: hidden;
+  color: var(--fg-dim);
+  font-size: 15px;
+  line-height: 1.6;
+  padding-left: 60px;
+  padding-right: 64px;
+}
+.faq-item.open .faq-a-inner { padding-bottom: 26px; }
+@media (max-width: 600px){
+  .faq-a-inner { padding-left: 36px; padding-right: 0; }
+  .faq-num { width: 28px; font-size: 11px; }
+  .faq-q { gap: 14px; }
+}
+.spacer-sm { height: 12px; } .spacer { height: 24px; } .spacer-lg { height: 48px; }
+.text-ice { color: var(--ice); }
+.divider { height: 1px; background: var(--line); margin: 20px 0; }
+
+/* ========================================================
+   CINEMATIC INTRO (white theme)
+   ======================================================== */
+
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #000;
+  overflow: hidden;
+  cursor: pointer;
+  will-change: opacity;
+  color: #fff;
+}
+
+.intro-p3 {
+  animation: introOut 1.8s ease 0.3s forwards;
+}
+@keyframes introOut {
+  to { opacity: 0; pointer-events: none; }
+}
+
+/* --- Car Image --- */
+.intro-car {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10vh;
+}
+.intro-car img {
+  width: min(92%, 880px);
+  height: auto;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 1.6s ease, transform 2.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.intro-p1 .intro-car img {
+  opacity: 1;
+  transform: scale(1);
+}
+.intro-p2 .intro-car img {
+  opacity: 1;
+  transform: scale(1);
+}
+.intro-p3 .intro-car img {
+  opacity: 0.3;
+  transform: scale(0.97);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+/* --- Intro Hero Content --- */
+.intro-hero {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 14vh;
+  pointer-events: none;
+}
+.intro-hero-inner {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.intro-p2 .intro-hero-inner {
+  opacity: 1;
+  transform: translateY(0);
+}
+.intro-p3 .intro-hero-inner {
+  opacity: 0;
+  transform: translateY(-12px);
+  transition-duration: 0.5s;
+}
+
+.intro-h1 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: clamp(44px, 6.8vw, 96px);
+  font-weight: 200;
+  letter-spacing: 0.12em;
+  line-height: 1.0;
+  margin: 0 0 16px;
+  text-transform: uppercase;
+}
+.intro-h1 em { font-style: normal; color: var(--ice); }
+.intro-sub {
+  font-size: clamp(15px, 1.3vw, 18px);
+  color: rgba(255,255,255,0.55);
+  margin: 0;
+}
+
+/* --- Intro Logo --- */
+.intro-logo {
+  position: absolute;
+  top: 50%;
+  left: calc(25% - 2in);
+  z-index: 5;
+  transform: translateY(-50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.4s ease;
+}
+.intro-logo img {
+  width: min(30vw, 240px);
+  height: min(30vw, 240px);
+  object-fit: contain;
+}
+.intro-p1 .intro-logo {
+  opacity: 1;
+}
+.intro-p2 .intro-logo {
+  opacity: 1;
+}
+.intro-p3 .intro-logo {
+  opacity: 0;
+  transition-duration: 0.8s;
+}
+
+/* --- Skip Hint --- */
+.intro-skip {
+  position: absolute;
+  bottom: 22px;
+  right: 28px;
+  z-index: 30;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+  opacity: 0;
+  animation: introSkipIn 0.5s ease 2s forwards;
+}
+@keyframes introSkipIn { to { opacity: 1; } }
+
+/* ========================================================
+   LOGO WATERMARK  (fixed behind page, always on)
+   ======================================================== */
+.logo-watermark {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 2s ease 0.3s;
+}
+.logo-watermark img {
+  width: min(50vw, 400px);
+  height: min(50vw, 400px);
+  object-fit: contain;
+  opacity: 0.06;
+}
+.wm-on { opacity: 1; }
+
+/* ========================================================
+   PAGE WRAPPER  (hidden during intro, fades in)
+   ======================================================== */
+.page-wrap {
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.5s ease 0.3s;
+}
+.page-on {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ========================================================
+   HERO POST-INTRO  (car image hero)
+   ======================================================== */
+.hero-post {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hero-post-body {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 150px 20px 0;
+  flex: 0 0 auto;
+}
+.hero-post-title {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: clamp(48px, 7.5vw, 110px);
+  font-weight: 200;
+  letter-spacing: 0.12em;
+  line-height: 1.0;
+  margin: 18px 0 28px;
+  text-transform: uppercase;
+}
+.hero-post-title em {
+  font-style: normal;
+  color: var(--ice);
+}
+.hero-post-sub {
+  font-size: clamp(14px, 1.3vw, 18px);
+  color: var(--fg-dim);
+  margin: 0 auto 30px;
+  max-width: 500px;
+}
+.hero-post-cta {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.hero-car-wrap {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  margin-top: -10px;
+  min-height: 0;
+}
+.hero-car-wrap img {
+  width: min(94%, 880px);
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 720px) {
+  .hero-post-body { padding-top: 120px; }
+  .hero-car-wrap { margin-top: 10px; }
+  .hero-car-wrap img { width: 100%; }
+}
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="vendor/react.js"></script>
+  <script src="vendor/react-dom.js"></script>
+  <script src="vendor/babel.min.js"></script>
+
+  <!-- Intro animation -->
+  <script type="text/babel">
+/* ========== Authentic Car Care — White Intro ========== */
+
+function IntroAnimation({ onReveal, onComplete }) {
+  const [phase, setPhase] = React.useState(0);
+  const doneRef = React.useRef(false);
+
+  const skip = () => {
+    if (doneRef.current) return;
+    doneRef.current = true;
+    setPhase(4);
+    document.body.style.overflow = '';
+    onReveal();
+    setTimeout(onComplete, 60);
+  };
+
+  React.useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    const t = [
+      setTimeout(() => setPhase(1), 400),
+      setTimeout(() => setPhase(2), 1800),
+      setTimeout(() => setPhase(3), 4500),
+      setTimeout(() => onReveal(), 4800),
+      setTimeout(() => {
+        if (!doneRef.current) {
+          doneRef.current = true;
+          setPhase(4);
+          document.body.style.overflow = '';
+          onComplete();
+        }
+      }, 6800),
+    ];
+
+    return () => { t.forEach(clearTimeout); document.body.style.overflow = ''; };
+  }, []);
+
+  if (phase >= 4) return null;
+
+  return (
+    <div className={`intro intro-p${phase}`} onClick={skip}>
+      <div className="intro-car">
+        <img src="project/assets/hero-car-dramatic.png" alt="" />
+      </div>
+
+      <div className="intro-logo">
+        <img src="project/assets/logo-glyph.png" alt="" />
+      </div>
+
+      <div className="intro-hero">
+        <div className="intro-hero-inner">
+          <h1 className="display intro-h1">
+            <span>Authentic</span>{' '}<em>Car Care</em>
+          </h1>
+          <p className="intro-sub">Mobile detailing across Prince Edward Island</p>
+        </div>
+      </div>
+
+      <div className="intro-skip">Click anywhere to skip</div>
+    </div>
+  );
+}
+  </script>
+
+  <!-- App core: data, Nav, Hero, Marquee -->
+  <script type="text/babel">
+/* ========== Authentic Car Care — main React app ========== */
+const { useState, useEffect, useRef, useMemo, useCallback } = React;
+
+/* ---------- Data ---------- */
+const SERVICES = [
+  {
+    id: 'express',
+    num: '01',
+    name: 'Express Wash',
+    tag: 'In & out in 45 minutes',
+    durationLabel: '~45 minutes',
+    slotMode: 'window',
+    price: 60,
+    fromLabel: false,
+    bullets: [
+      'Hand foam wash + rinse',
+      'Wheels & tire shine',
+      'Quick interior vacuum',
+      'Windows (outside only)',
+    ],
+    allowWax: true,
+  },
+  {
+    id: 'interior',
+    num: '02',
+    name: 'Interior Care',
+    tag: 'Deep clean every surface',
+    durationLabel: '3–4 hours',
+    slotMode: 'arrival',
+    price: 110,
+    fromLabel: true,
+    bullets: [
+      'Full vacuum & steam',
+      'Carpet & seat shampoo',
+      'Dash, trim & vent detail',
+      'Leather conditioning',
+    ],
+    allowWax: false,
+  },
+  {
+    id: 'exterior',
+    num: '03',
+    name: 'Exterior Care',
+    tag: 'Showroom paint correction',
+    durationLabel: '3–4 hours',
+    slotMode: 'arrival',
+    price: 110,
+    fromLabel: true,
+    bullets: [
+      'Two-bucket hand wash',
+      'Clay bar decontamination',
+      'Wheels, arches, tires',
+      'Glass + paint sealant',
+    ],
+    allowWax: true,
+  },
+  {
+    id: 'complete',
+    num: '04',
+    name: 'Complete Care',
+    tag: 'The full Authentic treatment',
+    durationLabel: '5–6 hours · half day',
+    slotMode: 'halfday',
+    price: 200,
+    fromLabel: true,
+    bullets: [
+      'Everything in Interior + Exterior',
+      'Sealant wax + tire dressing',
+      'Fragrance refresh',
+    ],
+    allowWax: false,
+    badge: 'Most popular',
+  },
+];
+
+const ADDONS = [
+  { id: 'pet', name: 'Pet hair removal', price: 30, note: 'All services' },
+  { id: 'wax', name: 'Hand wax', price: 50, note: 'Express + Exterior only' },
+];
+
+const GALLERY = [
+  {
+    id: 'mud',
+    title: 'Charlottetown red mud → mirror gloss',
+    category: 'Exterior Care',
+    desc: 'Subaru Outback pulled off a side road. Iron decon + clay bar + hand wax left the panel ready to shoot.',
+    details: [
+      ['Service', 'Exterior Care'],
+      ['Time on site', '3h 20m'],
+      ['Add-ons', 'Hand wax'],
+      ['Vehicle', 'Subaru Outback'],
+    ],
+  },
+  {
+    id: 'dog',
+    title: 'Family wagon, golden retriever edition',
+    category: 'Interior Care',
+    desc: 'Six months of beach trips. Steam extraction on every seat, pet hair removal, leather rehab.',
+    details: [
+      ['Service', 'Interior Care'],
+      ['Time on site', '4h 10m'],
+      ['Add-ons', 'Pet hair removal'],
+      ['Vehicle', 'Honda Pilot'],
+    ],
+  },
+  {
+    id: 'truck',
+    title: 'Worksite truck, Cavendish to new',
+    category: 'Complete Care',
+    desc: 'Cement dust, gull marks, the works. Engine bay clean and full interior reset before resale.',
+    details: [
+      ['Service', 'Complete Care'],
+      ['Time on site', '6h 00m'],
+      ['Add-ons', '—'],
+      ['Vehicle', 'Ford F-150'],
+    ],
+  },
+  {
+    id: 'sedan',
+    title: 'Express wash, lunch-break turnaround',
+    category: 'Express Wash',
+    desc: 'Pulled into the driveway in Stratford at 12, back to spotless by 12:45.',
+    details: [
+      ['Service', 'Express Wash'],
+      ['Time on site', '0h 45m'],
+      ['Add-ons', 'Hand wax'],
+      ['Vehicle', 'Toyota Camry'],
+    ],
+  },
+];
+
+/* ---------- Helpers ---------- */
+const fmt = (n) => `$${n.toFixed(0)}`;
+
+/* ---------- App root ---------- */
+function App() {
+  const [selectedService, setSelectedService] = useState('complete');
+  const [activeAddons, setActiveAddons] = useState({});
+  const service = SERVICES.find((s) => s.id === selectedService);
+  const waxAllowed = service?.allowWax ?? false;
+
+  useEffect(() => {
+    if (!waxAllowed && activeAddons.wax) {
+      setActiveAddons((a) => ({ ...a, wax: false }));
+    }
+  }, [waxAllowed]);
+
+  const addonTotal = ADDONS.reduce((sum, a) => sum + (activeAddons[a.id] ? a.price : 0), 0);
+  const total = (service?.price || 0) + addonTotal;
+
+  return (
+    <>
+      <Nav />
+      <Hero />
+      <Marquee />
+      <Services
+        selected={selectedService}
+        onSelect={setSelectedService}
+        addons={activeAddons}
+        setAddons={setActiveAddons}
+        waxAllowed={waxAllowed}
+        total={total}
+        service={service}
+        addonTotal={addonTotal}
+      />
+      <Gallery />
+      <Booking
+        service={service}
+        addons={activeAddons}
+        total={total}
+        onChangeService={setSelectedService}
+        onToggleAddon={(id) => setActiveAddons((a) => ({ ...a, [id]: !a[id] }))}
+        waxAllowed={waxAllowed}
+      />
+      <FAQ />
+      <Footer />
+    </>
+  );
+}
+
+/* ---------- Nav ---------- */
+function Nav() {
+  return (
+    <nav className="nav">
+      <div className="wrap nav-inner">
+        <a href="#top" className="brand">
+          <div className="brand-mark"><img src="project/assets/logo.png" alt="" /></div>
+          <div className="brand-name">
+            <b>Authentic Car Care</b>
+            <span>Mobile detail · PEI</span>
+          </div>
+        </a>
+        <div className="nav-links">
+          <a href="#services">Services</a>
+          <a href="#menu">Before / After</a>
+          <a href="#book">Book</a>
+          <a href="#faq">FAQ</a>
+          <a href="tel:+19022130825">(902) 213-0825</a>
+        </div>
+        <a href="#book" className="btn btn-ice">Book now <Arrow /></a>
+      </div>
+    </nav>
+  );
+}
+
+/* ---------- Hero ---------- */
+function Hero() {
+  return (
+    <header className="hero-v2" id="top">
+      <div className="stage-cinema">
+        <img className="hero-bg-img" src="project/assets/hero-car-dramatic.png" alt="" />
+      </div>
+      <div className="hero-vignette" />
+      <div className="hero-floor" />
+      <div className="hero-content">
+        <div className="wrap">
+          <div className="eyebrow"><span className="dot"></span> Mobile detail · PEI</div>
+          <h1>Authentic <em>Car Care</em></h1>
+          <p className="lead">Mobile car detailing across Prince Edward Island</p>
+          <div className="hero-cta">
+            <a href="#book" className="btn btn-ice btn-lg">Book a detail <Arrow /></a>
+            <a href="#services" className="btn btn-lg">See services</a>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+function Arrow() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M5 12h14M13 5l7 7-7 7" />
+    </svg>
+  );
+}
+
+/* ---------- Marquee ---------- */
+function Marquee() {
+  const items = ['Charlottetown', 'Summerside', 'Stratford', 'Cornwall', 'Cavendish', 'Borden', 'Montague', 'Souris', 'Kensington', 'Mount Stewart'];
+  const phrase = (
+    <>
+      {items.map((it, i) => <span key={i}>{it} <em>✦</em></span>)}
+    </>
+  );
+
+  return (
+    <div className="marquee">
+      <div className="marquee-track">{phrase}{phrase}{phrase}</div>
+    </div>
+  );
+}
+  </script>
+
+  <!-- Sections: Services, Gallery, Booking, FAQ, Footer -->
+  <script type="text/babel">
+/* ========== Authentic Car Care — services, gallery, booking ========== */
+const { useState: useS, useEffect: useE, useRef: useR, useMemo: useM } = React;
+
+/* ---------- Services ---------- */
+function Services({ selected, onSelect, addons, setAddons, waxAllowed, total, service, addonTotal }) {
+  return (
+    <section id="services">
+      <div className="wrap">
+        <div className="section-title">
+          <div>
+            <div className="section-kicker">/ 01 — Services</div>
+            <h2 className="display">Pick the level of <em>care</em>.<br />We do the driving.</h2>
+          </div>
+          <div className="sub">Tap a service to set up your quote. Add-ons can be combined below. All prices in CAD.</div>
+        </div>
+
+        <div className="services-grid">
+          {SERVICES.map((s, i) => (
+            <ServiceCard key={s.id} svc={s} selected={selected === s.id} onSelect={() => onSelect(s.id)} idx={i} />
+          ))}
+        </div>
+
+        <AddOns addons={addons} setAddons={setAddons} waxAllowed={waxAllowed} />
+        <QuoteBar service={service} addons={addons} addonTotal={addonTotal} total={total} />
+      </div>
+    </section>
+  );
+}
+
+function ServiceCard({ svc, selected, onSelect }) {
+  return (
+    <div
+      className={`svc-card-wrap ${selected ? 'selected' : ''}`}
+      onClick={onSelect}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => e.key === 'Enter' && onSelect()}
+    >
+      <div className="svc-card-inner">
+        <div className="svc-face svc-front">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <div className="svc-num">{svc.num} / 04</div>
+            {svc.badge && (
+              <div className="eyebrow" style={{ padding: '4px 10px', fontSize: '10px', marginRight: '38px' }}>{svc.badge}</div>
+            )}
+          </div>
+          <div className="svc-icon"><ServiceIcon id={svc.id} /></div>
+          <h3>{svc.name}</h3>
+          <div className="tag">{svc.tag}</div>
+          <div className="price-block">
+            {svc.fromLabel && <div className="from">Starting from</div>}
+            <div className="price">{fmt(svc.price)}</div>
+          </div>
+          <div className="svc-hint">Hover to see what's included →</div>
+          <div className="check">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12l5 5 9-11" />
+            </svg>
+          </div>
+        </div>
+        <div className="svc-face svc-back">
+          <div className="svc-num">{svc.num} — Included</div>
+          <h3 style={{ marginTop: 14 }}>{svc.name}</h3>
+          <ul>
+            {svc.bullets.map((b, i) => <li key={i}>{b}</li>)}
+          </ul>
+          <button
+            className={`btn ${selected ? 'btn-ice' : ''}`}
+            style={{ width: '100%', justifyContent: 'center', marginTop: 'auto' }}
+          >
+            {selected ? '✓ Selected' : 'Choose this'} {!selected && <Arrow />}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ServiceIcon({ id }) {
+  const stroke = "#2678b0";
+  const props = { fill: "none", stroke, strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round" };
+  if (id === 'express') return (
+    <svg width="28" height="28" viewBox="0 0 24 24" {...props}>
+      <path d="M13 2L4 14h7l-1 8 9-12h-7z" />
+    </svg>
+  );
+  if (id === 'interior') return (
+    <svg width="28" height="28" viewBox="0 0 24 24" {...props}>
+      <path d="M4 18v-2a4 4 0 014-4h8a4 4 0 014 4v2" />
+      <path d="M6 18v3M18 18v3" />
+      <path d="M8 12V8a4 4 0 018 0v4" />
+    </svg>
+  );
+  if (id === 'exterior') return (
+    <svg width="28" height="28" viewBox="0 0 24 24" {...props}>
+      <path d="M3 17h18l-2-7H5l-2 7z" />
+      <circle cx="7" cy="17" r="2" />
+      <circle cx="17" cy="17" r="2" />
+      <path d="M5 10l2-4h10l2 4" />
+    </svg>
+  );
+  if (id === 'complete') return (
+    <svg width="28" height="28" viewBox="0 0 24 24" {...props}>
+      <path d="M12 2l2.4 5 5.6.8-4 4 1 5.6L12 14.8 6.9 17.4 8 11.8 4 7.8l5.6-.8z" />
+    </svg>
+  );
+  return null;
+}
+
+/* ---------- Add-ons ---------- */
+function AddOns({ addons, setAddons, waxAllowed }) {
+  return (
+    <div className="addons-card">
+      <div className="addons-header">
+        <div>
+          <h3>Add-ons</h3>
+          <p>Toggle extras for your selected service. Available add-ons depend on the package.</p>
+        </div>
+      </div>
+      <div className="addons-row">
+        {ADDONS.map((a) => {
+          const disabled = a.id === 'wax' && !waxAllowed;
+          const on = !!addons[a.id] && !disabled;
+          return (
+            <button
+              key={a.id}
+              className={`addon-chip ${on ? 'on' : ''}`}
+              disabled={disabled}
+              onClick={() => setAddons((prev) => ({ ...prev, [a.id]: !prev[a.id] }))}
+            >
+              <span className="plus">+{a.price}</span>
+              <span>{a.name}</span>
+              <span className="note">{disabled ? 'not available with this service' : a.note}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/* ---------- Quote bar ---------- */
+function QuoteBar({ service, addons, addonTotal, total }) {
+  const activeAddons = ADDONS.filter((a) => addons[a.id]);
+  return (
+    <div className="quote-bar">
+      <div className="left">
+        <div className="label">Your quote so far</div>
+        <div className="total">
+          <em>{fmt(total)}</em>
+          <span style={{ fontSize: 14, color: 'var(--fg-mute)', marginLeft: 8 }}> CAD</span>
+        </div>
+        <div className="breakdown">
+          {service?.name} {service?.fromLabel ? '(from)' : ''} · {fmt(service?.price || 0)}
+          {activeAddons.length > 0 && (
+            <> + {activeAddons.map((a) => `${a.name} (${fmt(a.price)})`).join(' + ')}</>
+          )}
+        </div>
+      </div>
+      <a href="#book" className="btn btn-ice btn-lg">Continue to booking <Arrow /></a>
+    </div>
+  );
+}
+
+/* ---------- Gallery / Before–After ---------- */
+function Gallery() {
+  const [active, setActive] = useS(0);
+  const [filter, setFilter] = useS('All');
+  const filtered = useM(() => filter === 'All' ? GALLERY : GALLERY.filter((g) => g.category === filter), [filter]);
+  useE(() => { if (active >= filtered.length) setActive(0); }, [filter]);
+  const item = filtered[active] || GALLERY[0];
+
+  return (
+    <section id="menu" style={{ paddingTop: 60 }}>
+      <div className="wrap">
+        <div className="section-title">
+          <div>
+            <div className="section-kicker">/ 02 — Before / After</div>
+            <h2 className="display">Drag to see the <em>difference</em>.</h2>
+          </div>
+          <div className="sub">Real cars, real driveways. Drag the handle on each photo to scrub between before and after.</div>
+        </div>
+
+        <div className="menu-tabs">
+          {['All', 'Express Wash', 'Interior Care', 'Exterior Care', 'Complete Care'].map((t) => (
+            <button key={t} className={`menu-tab ${filter === t ? 'on' : ''}`} onClick={() => setFilter(t)}>{t}</button>
+          ))}
+        </div>
+
+        <div className="ba-wrap">
+          <BeforeAfter item={item} key={item.id} />
+          <div className="ba-meta">
+            <div className="tag-pill">{item.category}</div>
+            <h3>{item.title}</h3>
+            <p>{item.desc}</p>
+            <div className="detail-list">
+              {item.details.map(([k, v], i) => (
+                <div key={i}><span>{k}</span><span>{v}</span></div>
+              ))}
+            </div>
+            <div className="ba-thumbs">
+              {filtered.map((g, i) => (
+                <button
+                  key={g.id}
+                  className={`ba-thumb ${i === active ? 'on' : ''}`}
+                  onClick={() => setActive(i)}
+                  aria-label={g.title}
+                >
+                  <div className="fake-photo fp-after">
+                    <FakeCar tone={g.id} />
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function BeforeAfter({ item }) {
+  const [pos, setPos] = useS(50);
+  const stageRef = useR(null);
+  const dragging = useR(false);
+
+  const setFromClient = (clientX) => {
+    const el = stageRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const v = (clientX - r.left) / r.width * 100;
+    setPos(Math.max(0, Math.min(100, v)));
+  };
+
+  useE(() => {
+    const onMove = (e) => { if (dragging.current) setFromClient(e.touches ? e.touches[0].clientX : e.clientX); };
+    const onUp = () => { dragging.current = false; };
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('touchmove', onMove);
+    window.addEventListener('mouseup', onUp);
+    window.addEventListener('touchend', onUp);
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('touchmove', onMove);
+      window.removeEventListener('mouseup', onUp);
+      window.removeEventListener('touchend', onUp);
+    };
+  }, []);
+
+  return (
+    <div
+      className="ba-stage"
+      ref={stageRef}
+      onMouseDown={(e) => { dragging.current = true; setFromClient(e.clientX); }}
+      onTouchStart={(e) => { dragging.current = true; setFromClient(e.touches[0].clientX); }}
+    >
+      <div className="ba-img ba-img-before">
+        <div className="fake-photo fp-before">
+          <div className="grain" />
+          <div className="fake-car"><FakeCar tone={item.id} dirty /></div>
+        </div>
+      </div>
+      <div className="ba-img ba-img-after">
+        <div className="ba-clip" style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
+          <div className="fake-photo fp-after">
+            <div className="shine" />
+            <div className="grain" />
+            <div className="fake-car"><FakeCar tone={item.id} /></div>
+          </div>
+        </div>
+      </div>
+      <div className="ba-label before">Before</div>
+      <div className="ba-label after">After</div>
+      <div className="ba-handle" style={{ left: `${pos}%` }} />
+      <div className="ba-knob" style={{ left: `${pos}%` }}>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M8 6l-4 6 4 6M16 6l4 6-4 6" />
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+function FakeCar({ tone, dirty }) {
+  const bodyTop = dirty ? '#3a322a' : '#1c2632';
+  const bodyBot = dirty ? '#1a1410' : '#05080b';
+  return (
+    <svg viewBox="0 0 360 160" width="100%" height="100%">
+      <defs>
+        <linearGradient id={`b-${tone}-${dirty ? 'd' : 'c'}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor={bodyTop} />
+          <stop offset="1" stopColor={bodyBot} />
+        </linearGradient>
+      </defs>
+      <ellipse cx="180" cy="142" rx="150" ry="8" fill="#000" opacity="0.5" />
+      <path
+        d="M20 110 Q35 80 80 70 L130 55 Q180 42 230 47 L300 70 Q340 80 350 105 L350 130 Q350 138 342 138 L28 138 Q20 138 20 130 Z"
+        fill={`url(#b-${tone}-${dirty ? 'd' : 'c'})`}
+      />
+      <path d="M105 70 Q132 35 195 32 Q260 35 280 65 Z" fill={dirty ? '#2a241d' : '#0a0e12'} />
+      <path d="M120 70 Q145 45 190 41 L190 70 Z" fill={dirty ? '#5a4c3a' : '#2678b0'} opacity={dirty ? '0.6' : '0.5'} />
+      <path d="M198 41 Q250 45 275 65 L198 70 Z" fill={dirty ? '#5a4c3a' : '#2678b0'} opacity={dirty ? '0.6' : '0.5'} />
+      <circle cx="90" cy="138" r="22" fill="#040608" />
+      <circle cx="270" cy="138" r="22" fill="#040608" />
+      <circle cx="90" cy="138" r="17" fill={dirty ? '#171210' : '#0a0c0f'} stroke="#2678b0" strokeOpacity={dirty ? '0.15' : '0.4'} strokeWidth="1" />
+      <circle cx="270" cy="138" r="17" fill={dirty ? '#171210' : '#0a0c0f'} stroke="#2678b0" strokeOpacity={dirty ? '0.15' : '0.4'} strokeWidth="1" />
+      {!dirty && (
+        <path d="M20 110 Q35 80 80 70 L130 55 Q180 42 230 47 L300 70" fill="none" stroke="#2678b0" strokeOpacity="0.5" strokeWidth="0.8" />
+      )}
+      {dirty && (
+        <>
+          <ellipse cx="80" cy="100" rx="30" ry="8" fill="#6a523a" opacity="0.5" />
+          <ellipse cx="200" cy="120" rx="40" ry="6" fill="#5a4530" opacity="0.4" />
+          <ellipse cx="280" cy="110" rx="20" ry="6" fill="#6a523a" opacity="0.45" />
+        </>
+      )}
+    </svg>
+  );
+}
+
+/* ---------- Booking ---------- */
+function Booking({ service, addons, total, onChangeService, onToggleAddon, waxAllowed }) {
+  const [step, setStep] = useS(1);
+  const [form, setForm] = useS({ name: '', email: '', phone: '', address: '', vehicle: '', date: '', time: '', notes: '' });
+  const [photos, setPhotos] = useS([]);
+  const [dragging, setDragging] = useS(false);
+  const [submitted, setSubmitted] = useS(false);
+  const inputRef = useR(null);
+
+  const update = (k, v) => setForm((f) => ({ ...f, [k]: v }));
+
+  const onFiles = (files) => {
+    const arr = Array.from(files).slice(0, 6);
+    const next = arr.map((f) => ({ id: Math.random().toString(36).slice(2, 9), url: URL.createObjectURL(f) }));
+    setPhotos((p) => [...p, ...next].slice(0, 6));
+  };
+
+  const removePhoto = (id) => setPhotos((p) => p.filter((x) => x.id !== id));
+
+  const submit = () => {
+    setSubmitted(true);
+    setTimeout(() => setSubmitted(false), 3500);
+    setStep(1);
+    setForm({ name: '', email: '', phone: '', address: '', vehicle: '', date: '', time: '', notes: '' });
+    setPhotos([]);
+  };
+
+  const canAdvance =
+    step === 1 ||
+    (step === 2 && form.vehicle.trim().length > 1) ||
+    (step === 3 && form.name && form.email && form.phone && form.address);
+
+  return (
+    <section id="book">
+      <div className="wrap">
+        <div className="section-title">
+          <div>
+            <div className="section-kicker">/ 03 — Book</div>
+            <h2 className="display">Three steps. <em>Real quote.</em><br />Then we show up.</h2>
+          </div>
+          <div className="sub">Upload a couple of phone photos of your vehicle so we can confirm pricing before we arrive. No deposit required.</div>
+        </div>
+
+        <div className="book-wrap">
+          <div className="book-card">
+            <div className="book-step-label">
+              <span>Step {step} of 3</span>
+              <span>{step === 1 ? 'Service & add-ons' : step === 2 ? 'Vehicle photos' : 'When & where'}</span>
+            </div>
+            <div className="book-steps">
+              {[1, 2, 3].map((n) => (
+                <div key={n} className={`book-step ${n < step ? 'done' : n === step ? 'active' : ''}`} />
+              ))}
+            </div>
+
+            {step === 1 && (
+              <Step1 service={service} addons={addons} onChangeService={onChangeService} onToggleAddon={onToggleAddon} waxAllowed={waxAllowed} />
+            )}
+            {step === 2 && (
+              <Step2
+                inputRef={inputRef}
+                photos={photos}
+                onFiles={onFiles}
+                removePhoto={removePhoto}
+                dragging={dragging}
+                setDragging={setDragging}
+                form={form}
+                update={update}
+              />
+            )}
+            {step === 3 && (
+              <Step3 form={form} update={update} service={service} />
+            )}
+
+            <div className="book-actions">
+              <button
+                className="btn"
+                onClick={() => setStep((s) => Math.max(1, s - 1))}
+                disabled={step === 1}
+                style={{ opacity: step === 1 ? 0.4 : 1 }}
+              >
+                ← Back
+              </button>
+              {step < 3 ? (
+                <button
+                  className="btn btn-ice"
+                  disabled={!canAdvance}
+                  onClick={() => setStep((s) => s + 1)}
+                  style={{ opacity: canAdvance ? 1 : 0.4 }}
+                >
+                  Next step <Arrow />
+                </button>
+              ) : (
+                <button
+                  className="btn btn-ice"
+                  disabled={!canAdvance}
+                  onClick={submit}
+                  style={{ opacity: canAdvance ? 1 : 0.4 }}
+                >
+                  Send booking request <Arrow />
+                </button>
+              )}
+            </div>
+          </div>
+
+          <BookSummary service={service} addons={addons} total={total} form={form} photos={photos} />
+        </div>
+      </div>
+      {submitted && <div className="toast">✓ Booking sent — we'll text you within an hour.</div>}
+    </section>
+  );
+}
+
+function Step1({ service, addons, onChangeService, onToggleAddon, waxAllowed }) {
+  return (
+    <div>
+      <div className="field">
+        <label>Service package</label>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 10 }}>
+          {SERVICES.map((s) => (
+            <button
+              key={s.id}
+              className="btn"
+              onClick={() => onChangeService(s.id)}
+              style={{
+                justifyContent: 'space-between',
+                padding: '14px 18px',
+                background: service.id === s.id ? 'var(--ice)' : 'rgba(0,0,0,0.03)',
+                color: service.id === s.id ? '#061018' : 'var(--fg)',
+                border: service.id === s.id ? '1px solid var(--ice)' : '1px solid var(--line-strong)',
+              }}
+            >
+              <span style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <span style={{ fontWeight: 700 }}>{s.name}</span>
+                <span style={{ fontSize: 11, opacity: 0.7 }}>{s.tag}</span>
+              </span>
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontWeight: 700 }}>
+                {s.fromLabel ? 'from ' : ''}{fmt(s.price)}
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className="field">
+        <label>Add-ons</label>
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+          {ADDONS.map((a) => {
+            const disabled = a.id === 'wax' && !waxAllowed;
+            const on = !!addons[a.id] && !disabled;
+            return (
+              <button
+                key={a.id}
+                className={`addon-chip ${on ? 'on' : ''}`}
+                disabled={disabled}
+                onClick={() => onToggleAddon(a.id)}
+              >
+                <span className="plus">+{a.price}</span>
+                <span>{a.name}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Step2({ inputRef, photos, onFiles, removePhoto, dragging, setDragging, form, update }) {
+  return (
+    <div>
+      <div className="field">
+        <label>Vehicle (year, make, model)</label>
+        <input
+          value={form.vehicle}
+          onChange={(e) => update('vehicle', e.target.value)}
+          placeholder="2019 Subaru Outback, blue"
+        />
+      </div>
+      <div className="field">
+        <label>Photos for quote (up to 6)</label>
+        <div
+          className={`dropzone ${dragging ? 'dragging' : ''}`}
+          onClick={() => inputRef.current?.click()}
+          onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
+          onDragLeave={() => setDragging(false)}
+          onDrop={(e) => { e.preventDefault(); setDragging(false); onFiles(e.dataTransfer.files); }}
+        >
+          <div className="icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2678b0" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+              <path d="M17 8l-5-5-5 5M12 3v12" />
+            </svg>
+          </div>
+          <h4>Drop photos here, or tap to browse</h4>
+          <p>Phone shots are great — exterior, wheels, interior, problem areas.</p>
+          <input
+            ref={inputRef}
+            type="file"
+            accept="image/*"
+            multiple
+            style={{ display: 'none' }}
+            onChange={(e) => onFiles(e.target.files)}
+          />
+        </div>
+        {photos.length > 0 && (
+          <div className="photo-grid">
+            {photos.map((p, i) => (
+              <div
+                className="photo-thumb"
+                key={p.id}
+                style={{ transform: `rotate(${(i % 2 ? 1 : -1) * (i * 0.7 % 2)}deg)` }}
+              >
+                <img src={p.url} alt="" />
+                <button className="x" onClick={() => removePhoto(p.id)}>×</button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      <div className="field">
+        <label>Anything we should know? (optional)</label>
+        <textarea
+          rows="3"
+          value={form.notes}
+          onChange={(e) => update('notes', e.target.value)}
+          placeholder="Spilled coffee on the back seat last week, pet hair in the trunk, etc."
+        />
+      </div>
+    </div>
+  );
+}
+
+function Step3({ form, update, service }) {
+  const days = useM(() => {
+    const out = [];
+    const now = new Date();
+    let i = 1;
+    while (out.length < 8) {
+      const d = new Date(now);
+      d.setDate(now.getDate() + i);
+      const dow = d.getDay();
+      if (dow === 0 || dow === 6) out.push(d.toISOString().slice(0, 10));
+      i++;
+    }
+    return out;
+  }, []);
+
+  const mode = service?.slotMode || 'window';
+  const timeOptions = useM(() => {
+    if (mode === 'window') {
+      return [
+        '8:00 — 10:00 am',
+        '10:00 am — 12:00 pm',
+        '12:00 — 2:00 pm',
+        '2:00 — 4:00 pm',
+        '4:00 — 6:00 pm',
+      ];
+    }
+    if (mode === 'arrival') {
+      return [
+        'Morning — we arrive 8:00 am',
+        'Midday — we arrive 11:30 am',
+        'Afternoon — we arrive 1:30 pm',
+      ];
+    }
+    return [
+      'Morning block — 8:00 am start',
+      'Afternoon block — 12:30 pm start',
+    ];
+  }, [mode]);
+
+  useE(() => {
+    if (form.time && !timeOptions.includes(form.time)) update('time', '');
+  }, [timeOptions]);
+
+  const timeHint =
+    mode === 'window' ? 'Express Wash is quick (~45 min) — pick any 2-hour window.' :
+    mode === 'arrival' ? `${service?.name} takes ${service?.durationLabel} — choose when we arrive and we'll have your car for the afternoon.` :
+    `${service?.name} is a half-day job (${service?.durationLabel}) — we take one booking per block.`;
+
+  return (
+    <div>
+      <div className="row-2">
+        <div className="field">
+          <label>Full name</label>
+          <input value={form.name} onChange={(e) => update('name', e.target.value)} placeholder="First & last" />
+        </div>
+        <div className="field">
+          <label>Phone</label>
+          <input value={form.phone} onChange={(e) => update('phone', e.target.value)} placeholder="(902) 555-0123" />
+        </div>
+      </div>
+      <div className="field">
+        <label>Email</label>
+        <input value={form.email} onChange={(e) => update('email', e.target.value)} placeholder="you@example.com" />
+      </div>
+      <div className="field">
+        <label>Service address (PEI)</label>
+        <input value={form.address} onChange={(e) => update('address', e.target.value)} placeholder="123 Water St, Charlottetown" />
+      </div>
+      <div className="row-2">
+        <div className="field">
+          <label>
+            Preferred date{' '}
+            <span style={{ color: 'var(--fg-mute)', fontWeight: 400, textTransform: 'none', letterSpacing: 0 }}>· weekends only</span>
+          </label>
+          <select value={form.date} onChange={(e) => update('date', e.target.value)}>
+            <option value="">Pick a weekend day</option>
+            {days.map((d) => (
+              <option key={d} value={d}>
+                {new Date(d + 'T12:00').toLocaleDateString('en-CA', { weekday: 'short', month: 'short', day: 'numeric' })}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="field">
+          <label>Preferred {mode === 'window' ? 'window' : 'arrival'}</label>
+          <select value={form.time} onChange={(e) => update('time', e.target.value)}>
+            <option value="">{mode === 'window' ? 'Pick a window' : 'Pick when we arrive'}</option>
+            {timeOptions.map((t) => <option key={t}>{t}</option>)}
+          </select>
+        </div>
+      </div>
+      <p style={{ fontSize: 12, color: 'var(--fg-mute)', margin: '-4px 0 0', lineHeight: 1.5 }}>{timeHint}</p>
+    </div>
+  );
+}
+
+function BookSummary({ service, addons, total, form, photos }) {
+  const activeAddons = ADDONS.filter((a) => addons[a.id]);
+  return (
+    <aside className="book-summary">
+      <h3>Your booking</h3>
+      <div className="sub">Quote locks in once we confirm photos.</div>
+      <div className="sum-row"><span className="lbl">Service</span><span className="val">{service?.name || '—'}</span></div>
+      <div className="sum-row"><span className="lbl">Base price</span><span className="val">{fmt(service?.price || 0)}</span></div>
+      {activeAddons.length === 0 ? (
+        <div className="sum-empty">No add-ons selected</div>
+      ) : (
+        activeAddons.map((a) => (
+          <div className="sum-row" key={a.id}>
+            <span className="lbl">+ {a.name}</span>
+            <span className="val">{fmt(a.price)}</span>
+          </div>
+        ))
+      )}
+      {form.vehicle && (
+        <div className="sum-row">
+          <span className="lbl">Vehicle</span>
+          <span className="val" style={{ maxWidth: 160, textAlign: 'right', fontSize: 13 }}>{form.vehicle}</span>
+        </div>
+      )}
+      {photos.length > 0 && (
+        <div className="sum-row">
+          <span className="lbl">Photos</span>
+          <span className="val">{photos.length} attached</span>
+        </div>
+      )}
+      {form.date && (
+        <div className="sum-row">
+          <span className="lbl">When</span>
+          <span className="val" style={{ fontSize: 13 }}>
+            {new Date(form.date + 'T12:00').toLocaleDateString('en-CA', { weekday: 'short', month: 'short', day: 'numeric' })}
+            {form.time && ` · ${form.time}`}
+          </span>
+        </div>
+      )}
+      <div className="sum-row total">
+        <span className="lbl">Estimated total</span>
+        <span className="val">{fmt(total)}</span>
+      </div>
+      <p style={{ fontSize: 12, color: 'var(--fg-mute)', marginTop: 18, lineHeight: 1.5 }}>
+        Prices in CAD. Final quote may adjust based on vehicle condition.
+      </p>
+    </aside>
+  );
+}
+
+/* ---------- FAQ ---------- */
+const FAQ_ITEMS = [
+  {
+    q: 'Do you actually come to me?',
+    a: "Yes — that's the whole point. We're fully mobile across PEI. As long as we can park within a hose-length of your vehicle (driveway, parking lot, condo lot with permission), we set up our own equipment.",
+  },
+  {
+    q: 'Do you need water and power?',
+    a: "Yes — we need access to an outdoor water tap and a regular power outlet within roughly 50 feet of where the vehicle is parked. We bring our own hoses, extension cords, pressure washer and vacuum. If your spot doesn't have access, just let us know and we'll suggest the closest option.",
+  },
+  {
+    q: 'How long does each service take?',
+    a: 'Express Wash is about 45 minutes. Interior or Exterior Care runs 3–4 hours. Complete Care is a full half-day, usually 5–6 hours depending on the vehicle and condition.',
+  },
+  {
+    q: 'Why is the price "starting from"?',
+    a: "Pricing varies with vehicle size and condition. A clean compact takes less time and product than a muddy SUV. We confirm the exact price after you send a few photos in the booking form — no surprises on the day.",
+  },
+  {
+    q: 'Do I need to be home?',
+    a: "Not at all. Many clients book us while they're at work. Leave the keys somewhere we agreed on, we send before-and-after photos when we're done, and you pay by e-transfer or card.",
+  },
+  {
+    q: 'What about pet hair and bad smells?',
+    a: 'Pet hair is +$30 on any interior service — we use specialized rubber tools and brushes. For odours, our steam extraction and ozone treatment handle most things, including smoke and food spills.',
+  },
+  {
+    q: 'When can I add hand wax?',
+    a: "Hand wax (+$50) is available with Express Wash or Exterior Care. It's already included in Complete Care, and it doesn't apply to Interior Care alone.",
+  },
+  {
+    q: 'What if it rains?',
+    a: "We're in PEI — we know the weather. If it rains, we'll reach out the morning of to reschedule for the next available dry slot. No charge to move bookings.",
+  },
+  {
+    q: 'How do I pay?',
+    a: 'Right now we only accept cash or e-transfer — no credit or debit cards yet. Payment is due on the day of service. No deposit required to book.',
+  },
+];
+
+function FAQ() {
+  const [open, setOpen] = useS(0);
+  return (
+    <section id="faq">
+      <div className="wrap">
+        <div className="section-title">
+          <div>
+            <div className="section-kicker">/ 04 — FAQ</div>
+            <h2 className="display">The <em>questions</em> we hear most.</h2>
+          </div>
+          <div className="sub">Don't see your question? Text us at (902) 213-0825 — we usually reply within an hour.</div>
+        </div>
+        <div className="faq-list">
+          {FAQ_ITEMS.map((f, i) => (
+            <div key={i} className={`faq-item ${open === i ? 'open' : ''}`}>
+              <button className="faq-q" onClick={() => setOpen(open === i ? -1 : i)}>
+                <span className="faq-num">{String(i + 1).padStart(2, '0')}</span>
+                <span className="faq-text">{f.q}</span>
+                <span className="faq-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    <path d="M12 5v14M5 12h14" />
+                  </svg>
+                </span>
+              </button>
+              <div className="faq-a"><div className="faq-a-inner">{f.a}</div></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- Footer ---------- */
+function Footer() {
+  return (
+    <footer>
+      <div className="wrap">
+        <div className="foot-grid">
+          <div>
+            <div className="brand" style={{ marginBottom: 18 }}>
+              <div className="brand-mark"><img src="project/assets/logo.png" alt="" /></div>
+              <div className="brand-name">
+                <b>Authentic Car Care</b>
+                <span>Mobile detail · PEI</span>
+              </div>
+            </div>
+            <p style={{ maxWidth: 320, fontSize: 14, color: 'var(--fg-dim)' }}>
+              Professional mobile detailing brought right to your driveway, anywhere across Prince Edward Island.
+            </p>
+          </div>
+          <div>
+            <h5>Services</h5>
+            <a href="#services">Express Wash</a>
+            <a href="#services">Interior Care</a>
+            <a href="#services">Exterior Care</a>
+            <a href="#services">Complete Care</a>
+          </div>
+          <div>
+            <h5>Contact</h5>
+            <a href="tel:+19022130825">(902) 213-0825</a>
+            <a href="mailto:getauthenticcare@gmail.com">getauthenticcare@gmail.com</a>
+            <p>Weekends</p>
+          </div>
+          <div>
+            <h5>Service area</h5>
+            <p>All over PEI</p>
+          </div>
+        </div>
+        <div className="foot-bot">
+          <span>© 2026 Authentic Car Care. Built with hard work and honesty.</span>
+          <span>v1.0 · Mobile detail</span>
+        </div>
+      </div>
+    </footer>
+  );
+}
+  </script>
+
+  <!-- Root mount -->
+  <script type="text/babel">
+    function Root() {
+      const [showPage, setShowPage] = React.useState(false);
+      const [introGone, setIntroGone] = React.useState(false);
+
+      return (
+        <>
+          {!introGone && (
+            <IntroAnimation
+              onReveal={() => setShowPage(true)}
+              onComplete={() => setIntroGone(true)}
+            />
+          )}
+          <div className={`logo-watermark ${showPage ? 'wm-on' : ''}`}>
+            <img src="project/assets/logo.png" alt="" />
+          </div>
+          <div className={`page-wrap ${showPage ? 'page-on' : ''}`}>
+            <App />
+          </div>
+        </>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<Root />);
+  </script>
+</body>
+</html>
