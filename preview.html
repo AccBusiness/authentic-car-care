@@ -73,7 +73,7 @@ section { position: relative; padding: 120px 0; }
 }
 .nav-inner { display:flex; align-items:center; justify-content:space-between; gap:24px; }
 .brand { display:flex; align-items:center; gap:12px; }
-.brand-mark { width: 42px; height: 42px; border-radius: 50%; background: #fff; border: 1px solid var(--line); display:grid; place-items:center; padding: 4px; }
+.brand-mark { width: 42px; height: 42px; border-radius: 50%; background: transparent; border: none; display:grid; place-items:center; padding: 2px; }
 .brand-mark img { width: 100%; height: 100%; object-fit: contain; }
 .brand-name { display:flex; flex-direction:column; line-height: 1; }
 .brand-name b { font-family:'Josefin Sans',sans-serif; font-size: 17px; letter-spacing: 0.08em; font-weight: 300; text-transform: uppercase; }
@@ -103,25 +103,22 @@ section { position: relative; padding: 120px 0; }
 .btn-ice:hover { background: var(--ice-bright); box-shadow: 0 18px 40px -10px var(--ice-glow); }
 .btn-lg { padding: 16px 28px; font-size: 15px; }
 
-/* ---------- Hero cinematic ---------- */
+/* ---------- Hero — silver studio ---------- */
 .hero-v2 {
   min-height: 100vh;
-  padding: 0;
-  display: block;
+  background: #c8c8ca;
   position: relative;
   overflow: hidden;
-  background: #000;
-}
-.hero-vignette {
-  position: absolute; inset: 0; z-index: 4; pointer-events: none;
-  background:
-    radial-gradient(ellipse at 50% 40%, transparent 30%, rgba(0,0,0,0.55) 80%),
-    linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, transparent 22%, transparent 55%, rgba(0,0,0,0.98) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .stage-cinema {
-  position: absolute; inset: 0; z-index: 1;
-  display: grid; place-items: center;
-  overflow: hidden;
+  position: relative;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  z-index: 1;
 }
 .bat-halo,
 .bat-signal,
@@ -131,46 +128,49 @@ section { position: relative; padding: 120px 0; }
 .hero-car-svg { display: none; }
 
 .hero-bg-img {
-  position: absolute; inset: 0; z-index: 2;
-  width: 100%; height: 100%;
+  display: block;
+  width: 100%;
+  height: 68vh;
   object-fit: cover;
-  object-position: center 40%;
+  object-position: center 42%;
 }
-.hero-floor {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  height: 40vh; z-index: 3;
-  background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 50%, #000 100%);
-  pointer-events: none;
+.hero-vignette {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 82%,
+    rgba(200,200,202,0.25) 93%,
+    #c8c8ca 100%
+  );
 }
+.hero-floor { display: none; }
+
 .hero-content {
-  position: absolute; left: 0; right: 0; bottom: 0;
+  position: relative;
   z-index: 10;
-  padding: 0 0 90px;
+  width: 100%;
   text-align: center;
-  color: #fff;
+  padding: 0 20px 80px;
+  background: #c8c8ca;
 }
-.hero-content .eyebrow { margin: 0 auto; background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); color: rgba(255,255,255,0.8); }
-.hero-content .eyebrow .dot { background: var(--ice); }
 .hero-content h1 {
   font-family: 'Josefin Sans', sans-serif;
   font-weight: 200;
   font-size: clamp(52px, 7.5vw, 110px);
   letter-spacing: 0.12em;
   line-height: 0.95;
-  margin: 22px auto 22px;
+  margin: 0 auto 22px;
   max-width: 16ch;
   text-transform: uppercase;
-  color: #fff;
+  color: var(--fg);
 }
-.hero-content h1 em { font-style: normal; color: var(--ice); }
-.hero-content p.lead { font-size: clamp(15px, 1.3vw, 18px); color: rgba(255,255,255,0.6); max-width: 500px; margin: 0 auto 32px; }
+.hero-content h1 em { font-style: normal; color: var(--ice-deep); }
+.hero-content p.lead { font-size: clamp(15px, 1.3vw, 18px); color: rgba(14,17,23,0.65); max-width: 500px; margin: 0 auto 32px; }
 .hero-content .hero-cta { display:flex; gap: 14px; flex-wrap: wrap; justify-content: center; align-items: center; }
-.hero-content .btn { border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.08); color: #fff; }
-.hero-content .btn:hover { background: rgba(255,255,255,0.15); }
-.hero-content .btn-ice { background: var(--ice); border-color: transparent; color: #061018; }
-.hero-content .btn-ice:hover { background: var(--ice-bright); }
 
 @media (max-width: 720px){
+  .hero-bg-img { height: 45vh; }
   .hero-content { padding-bottom: 60px; }
 }
 
@@ -678,11 +678,11 @@ footer {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: #000;
+  background: var(--bg-2);
   overflow: hidden;
   cursor: pointer;
   will-change: opacity;
-  color: #fff;
+  color: var(--fg);
 }
 
 .intro-p3 {
@@ -763,7 +763,7 @@ footer {
 .intro-h1 em { font-style: normal; color: var(--ice); }
 .intro-sub {
   font-size: clamp(15px, 1.3vw, 18px);
-  color: rgba(255,255,255,0.55);
+  color: var(--fg-dim);
   margin: 0;
 }
 
@@ -803,7 +803,7 @@ footer {
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.25);
+  color: rgba(0,0,0,0.2);
   opacity: 0;
   animation: introSkipIn 0.5s ease 2s forwards;
 }
@@ -963,7 +963,7 @@ function IntroAnimation({ onReveal, onComplete }) {
   return (
     <div className={`intro intro-p${phase}`} onClick={skip}>
       <div className="intro-car">
-        <img src="project/assets/hero-car-dramatic.png" alt="" />
+        <img src="project/assets/hero-car-clean.png" alt="" />
       </div>
 
       <div className="intro-logo">
@@ -1197,13 +1197,11 @@ function Hero() {
   return (
     <header className="hero-v2" id="top">
       <div className="stage-cinema">
-        <img className="hero-bg-img" src="project/assets/hero-car-dramatic.png" alt="" />
+        <img className="hero-bg-img" src="project/assets/hero-car-studio.png" alt="" />
+        <div className="hero-vignette" />
       </div>
-      <div className="hero-vignette" />
-      <div className="hero-floor" />
       <div className="hero-content">
         <div className="wrap">
-          <div className="eyebrow"><span className="dot"></span> Mobile detail · PEI</div>
           <h1>Authentic <em>Car Care</em></h1>
           <p className="lead">Mobile car detailing across Prince Edward Island</p>
           <div className="hero-cta">
