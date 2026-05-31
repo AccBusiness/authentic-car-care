@@ -1,3 +1,4 @@
 # Local preview helpers (not used in production — index.html loads React from CDN)
 preview.html
 vendor/
+.thumbnail
