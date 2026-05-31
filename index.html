@@ -407,6 +407,7 @@ section { position: relative; padding: 120px 0; }
   box-shadow: 0 0 24px var(--ice-glow);
   z-index: 5; pointer-events: none;
   transition: left .12s ease-out;
+  will-change: left;
 }
 .ba-knob {
   position: absolute; top: 50%; left: 50%;
@@ -416,6 +417,8 @@ section { position: relative; padding: 120px 0; }
   transform: translate(-50%, -50%);
   box-shadow: 0 0 0 6px rgba(38,120,176,0.15), 0 0 30px var(--ice-glow);
   font-weight: 700; font-size: 18px;
+  transition: left .12s ease-out;
+  will-change: left;
 }
 .ba-label {
   position: absolute; top: 18px;
@@ -1473,23 +1476,36 @@ function Gallery() {
 }
 
 function BeforeAfter({ item }) {
-  const [pos, setPos] = useS(50);
   const stageRef = useR(null);
+  const clipRef = useR(null);
+  const handleRef = useR(null);
+  const knobRef = useR(null);
   const dragging = useR(false);
 
+  // Write the position straight to the DOM — no React re-render per move.
   const setFromClient = (clientX) => {
     const el = stageRef.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
-    const v = (clientX - r.left) / r.width * 100;
-    setPos(Math.max(0, Math.min(100, v)));
+    const p = Math.max(0, Math.min(100, (clientX - r.left) / r.width * 100));
+    if (clipRef.current) clipRef.current.style.clipPath = `inset(0 ${100 - p}% 0 0)`;
+    if (handleRef.current) handleRef.current.style.left = `${p}%`;
+    if (knobRef.current) knobRef.current.style.left = `${p}%`;
+  };
+
+  // While dragging, suppress the smooth transition so it tracks the finger 1:1.
+  const setDragVisual = (on) => {
+    const t = on ? 'none' : '';
+    if (clipRef.current) clipRef.current.style.transition = t;
+    if (handleRef.current) handleRef.current.style.transition = t;
+    if (knobRef.current) knobRef.current.style.transition = t;
   };
 
   useE(() => {
     const onMove = (e) => { if (dragging.current) setFromClient(e.touches ? e.touches[0].clientX : e.clientX); };
-    const onUp = () => { dragging.current = false; };
-    window.addEventListener('mousemove', onMove);
-    window.addEventListener('touchmove', onMove);
+    const onUp = () => { if (dragging.current) { dragging.current = false; setDragVisual(false); } };
+    window.addEventListener('mousemove', onMove, { passive: true });
+    window.addEventListener('touchmove', onMove, { passive: true });
     window.addEventListener('mouseup', onUp);
     window.addEventListener('touchend', onUp);
     return () => {
@@ -1500,14 +1516,15 @@ function BeforeAfter({ item }) {
     };
   }, []);
 
+  const start = (clientX) => { dragging.current = true; setDragVisual(true); setFromClient(clientX); };
   const hasPhotos = item.before && item.after;
 
   return (
     <div
       className={`ba-stage ${hasPhotos ? 'ba-stage-photo' : ''}`}
       ref={stageRef}
-      onMouseDown={(e) => { dragging.current = true; setFromClient(e.clientX); }}
-      onTouchStart={(e) => { dragging.current = true; setFromClient(e.touches[0].clientX); }}
+      onMouseDown={(e) => start(e.clientX)}
+      onTouchStart={(e) => start(e.touches[0].clientX)}
     >
       {hasPhotos ? (
         <>
@@ -1515,7 +1532,7 @@ function BeforeAfter({ item }) {
             <img className="ba-photo" src={item.before} alt="Before" draggable="false" />
           </div>
           <div className="ba-img ba-img-after">
-            <div className="ba-clip" style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
+            <div className="ba-clip" ref={clipRef} style={{ clipPath: 'inset(0 50% 0 0)' }}>
               <img className="ba-photo" src={item.after} alt="After" draggable="false" />
             </div>
           </div>
@@ -1529,7 +1546,7 @@ function BeforeAfter({ item }) {
             </div>
           </div>
           <div className="ba-img ba-img-after">
-            <div className="ba-clip" style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
+            <div className="ba-clip" ref={clipRef} style={{ clipPath: 'inset(0 50% 0 0)' }}>
               <div className="fake-photo fp-after">
                 <div className="shine" />
                 <div className="grain" />
@@ -1541,8 +1558,8 @@ function BeforeAfter({ item }) {
       )}
       <div className="ba-label before">Before</div>
       <div className="ba-label after">After</div>
-      <div className="ba-handle" style={{ left: `${pos}%` }} />
-      <div className="ba-knob" style={{ left: `${pos}%` }}>
+      <div className="ba-handle" ref={handleRef} style={{ left: '50%' }} />
+      <div className="ba-knob" ref={knobRef} style={{ left: '50%' }}>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M8 6l-4 6 4 6M16 6l4 6-4 6" />
         </svg>
