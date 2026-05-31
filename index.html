@@ -1121,30 +1121,6 @@ const GALLERY = [
       ['Vehicle', 'Honda CR-V'],
     ],
   },
-  {
-    id: 'truck',
-    title: 'Worksite truck, Cavendish to new',
-    category: 'Complete Care',
-    desc: 'Cement dust, gull marks, the works. Engine bay clean and full interior reset before resale.',
-    details: [
-      ['Service', 'Complete Care'],
-      ['Time on site', '6h 00m'],
-      ['Add-ons', '—'],
-      ['Vehicle', 'Ford F-150'],
-    ],
-  },
-  {
-    id: 'sedan',
-    title: 'Express wash, lunch-break turnaround',
-    category: 'Express Wash',
-    desc: 'Pulled into the driveway in Stratford at 12, back to spotless by 12:45.',
-    details: [
-      ['Service', 'Express Wash'],
-      ['Time on site', '0h 45m'],
-      ['Add-ons', 'Hand wax'],
-      ['Vehicle', 'Toyota Camry'],
-    ],
-  },
 ];
 
 /* ---------- Helpers ---------- */
@@ -1454,7 +1430,7 @@ function Gallery() {
         </div>
 
         <div className="menu-tabs">
-          {['All', 'Express Wash', 'Interior Care', 'Exterior Care', 'Complete Care'].map((t) => (
+          {['All', 'Interior Care', 'Exterior Care'].map((t) => (
             <button key={t} className={`menu-tab ${filter === t ? 'on' : ''}`} onClick={() => setFilter(t)}>{t}</button>
           ))}
         </div>
