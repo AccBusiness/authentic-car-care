@@ -106,7 +106,14 @@ section { position: relative; padding: 120px 0; }
 /* ---------- Hero — silver studio ---------- */
 .hero-v2 {
   min-height: 100vh;
-  background: #c8c8ca;
+  background: linear-gradient(
+    to bottom,
+    #c6c7c9 0%,
+    #cccdd0 40%,
+    #dadbdd 62%,
+    #eef0f1 82%,
+    var(--bg) 100%
+  );
   position: relative;
   overflow: hidden;
   display: flex;
@@ -130,20 +137,13 @@ section { position: relative; padding: 120px 0; }
 .hero-bg-img {
   display: block;
   width: 100%;
-  height: 68vh;
+  height: 72vh;
   object-fit: cover;
   object-position: center 42%;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 66%, transparent 97%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 66%, transparent 97%);
 }
-.hero-vignette {
-  position: absolute; inset: 0; z-index: 2; pointer-events: none;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    transparent 82%,
-    rgba(200,200,202,0.25) 93%,
-    #c8c8ca 100%
-  );
-}
+.hero-vignette { display: none; }
 .hero-floor { display: none; }
 
 .hero-content {
@@ -151,8 +151,9 @@ section { position: relative; padding: 120px 0; }
   z-index: 10;
   width: 100%;
   text-align: center;
-  padding: 0 20px 80px;
-  background: #c8c8ca;
+  padding: 0 20px 90px;
+  margin-top: -1vh;
+  background: transparent;
 }
 .hero-content h1 {
   font-family: 'Josefin Sans', sans-serif;
@@ -604,8 +605,6 @@ footer {
 
 /* Marquee */
 .marquee {
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
   padding: 22px 0; overflow: hidden; white-space: nowrap;
 }
 .marquee-track { display:inline-flex; gap: 60px; animation: marquee 30s linear infinite; }
