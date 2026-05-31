@@ -1081,6 +1081,7 @@ const GALLERY = [
     category: 'Exterior Care',
     before: 'project/assets/ford-escape-exterior-before.jpg',
     after: 'project/assets/ford-escape-exterior-after.jpg',
+    fill: true,
     desc: 'Spring back-road dust and dried mud all down the lower panels and wheels. Two-bucket hand wash, wheel decon and a sealant brought the copper paint right back.',
     details: [
       ['Service', 'Exterior Care'],
@@ -1523,7 +1524,7 @@ function BeforeAfter({ item }) {
 
   return (
     <div
-      className={`ba-stage ${hasPhotos ? 'ba-stage-photo' : ''}`}
+      className={`ba-stage ${hasPhotos ? 'ba-stage-photo' : ''} ${item.fill ? 'ba-stage-fill' : ''}`}
       ref={stageRef}
       onMouseDown={(e) => start(e.clientX)}
       onTouchStart={(e) => start(e.touches[0].clientX)}
