@@ -103,7 +103,7 @@ section { position: relative; padding: 120px 0; }
 .btn-ice:hover { background: var(--ice-bright); box-shadow: 0 18px 40px -10px var(--ice-glow); }
 .btn-lg { padding: 16px 28px; font-size: 15px; }
 
-/* ---------- Hero v2 (cinematic) ---------- */
+/* ---------- Hero cinematic ---------- */
 .hero-v2 {
   min-height: 100vh;
   padding: 0;
@@ -115,8 +115,8 @@ section { position: relative; padding: 120px 0; }
 .hero-vignette {
   position: absolute; inset: 0; z-index: 4; pointer-events: none;
   background:
-    radial-gradient(ellipse at 50% 40%, transparent 30%, rgba(0,0,0,0.6) 80%),
-    linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 20%, transparent 60%, rgba(0,0,0,0.95) 100%);
+    radial-gradient(ellipse at 50% 40%, transparent 30%, rgba(0,0,0,0.55) 80%),
+    linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, transparent 22%, transparent 55%, rgba(0,0,0,0.98) 100%);
 }
 .stage-cinema {
   position: absolute; inset: 0; z-index: 1;
@@ -133,46 +133,45 @@ section { position: relative; padding: 120px 0; }
 .hero-bg-img {
   position: absolute; inset: 0; z-index: 2;
   width: 100%; height: 100%;
-  object-fit: contain;
-  object-position: center center;
-  background: #000;
+  object-fit: cover;
+  object-position: center 40%;
 }
 .hero-floor {
   position: absolute; bottom: 0; left: 0; right: 0;
-  height: 20vh; z-index: 3;
-  background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 50%, #000 100%);
+  height: 40vh; z-index: 3;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 50%, #000 100%);
   pointer-events: none;
 }
 .hero-content {
   position: absolute; left: 0; right: 0; bottom: 0;
   z-index: 10;
-  padding: 0 0 80px;
+  padding: 0 0 90px;
   text-align: center;
+  color: #fff;
 }
-.hero-content .eyebrow { margin: 0 auto; }
+.hero-content .eyebrow { margin: 0 auto; background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); color: rgba(255,255,255,0.8); }
+.hero-content .eyebrow .dot { background: var(--ice); }
 .hero-content h1 {
   font-family: 'Josefin Sans', sans-serif;
-  font-weight: 700;
-  font-size: clamp(44px, 6.8vw, 96px);
-  letter-spacing: -0.045em;
-  line-height: 0.92;
+  font-weight: 200;
+  font-size: clamp(52px, 7.5vw, 110px);
+  letter-spacing: 0.12em;
+  line-height: 0.95;
   margin: 22px auto 22px;
-  max-width: 14ch;
+  max-width: 16ch;
+  text-transform: uppercase;
+  color: #fff;
 }
-.hero-content h1 em { font-style: normal; color: var(--ice); position: relative; display:inline-block; }
-.hero-content h1 em::after {
-  content:''; position:absolute; left: 0; right: 0; bottom: 6%; height: 16%;
-  background: radial-gradient(ellipse, var(--ice-glow), transparent 70%);
-  filter: blur(10px); z-index: -1;
-}
-.hero-content p.lead { font-size: clamp(15px, 1.3vw, 18px); color: var(--fg-dim); max-width: 600px; margin: 0 auto 30px; }
+.hero-content h1 em { font-style: normal; color: var(--ice); }
+.hero-content p.lead { font-size: clamp(15px, 1.3vw, 18px); color: rgba(255,255,255,0.6); max-width: 500px; margin: 0 auto 32px; }
 .hero-content .hero-cta { display:flex; gap: 14px; flex-wrap: wrap; justify-content: center; align-items: center; }
-.hero-content .hero-stats { display:flex; gap: 48px; margin: 50px auto 0; justify-content: center; flex-wrap: wrap; }
-.hero-content .hero-stat { text-align: center; }
+.hero-content .btn { border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.08); color: #fff; }
+.hero-content .btn:hover { background: rgba(255,255,255,0.15); }
+.hero-content .btn-ice { background: var(--ice); border-color: transparent; color: #061018; }
+.hero-content .btn-ice:hover { background: var(--ice-bright); }
 
 @media (max-width: 720px){
-  .hero-bg-img { object-fit: cover; object-position: center center; }
-  .hero-content .hero-stats { gap: 28px; margin-top: 30px; }
+  .hero-content { padding-bottom: 60px; }
 }
 
 .eyebrow {
@@ -679,11 +678,11 @@ footer {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: #fff;
+  background: #000;
   overflow: hidden;
   cursor: pointer;
   will-change: opacity;
-  color: #0e1117;
+  color: #fff;
 }
 
 .intro-p3 {
@@ -764,7 +763,7 @@ footer {
 .intro-h1 em { font-style: normal; color: var(--ice); }
 .intro-sub {
   font-size: clamp(15px, 1.3vw, 18px);
-  color: var(--fg-dim);
+  color: rgba(255,255,255,0.55);
   margin: 0;
 }
 
@@ -804,7 +803,7 @@ footer {
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(0,0,0,0.18);
+  color: rgba(255,255,255,0.25);
   opacity: 0;
   animation: introSkipIn 0.5s ease 2s forwards;
 }
@@ -964,7 +963,7 @@ function IntroAnimation({ onReveal, onComplete }) {
   return (
     <div className={`intro intro-p${phase}`} onClick={skip}>
       <div className="intro-car">
-        <img src="project/assets/hero-car-clean.png" alt="" />
+        <img src="project/assets/hero-car-dramatic.png" alt="" />
       </div>
 
       <div className="intro-logo">
@@ -1196,20 +1195,21 @@ function Nav() {
 /* ---------- Hero ---------- */
 function Hero() {
   return (
-    <header className="hero-post" id="top">
-      <div className="hero-post-body">
-        <div className="eyebrow"><span className="dot"></span> Mobile detail · PEI</div>
-        <h1 className="display hero-post-title">
-          Authentic<br /><em>Car Care</em>
-        </h1>
-        <p className="hero-post-sub">Mobile car detailing across Prince Edward Island</p>
-        <div className="hero-post-cta">
-          <a href="#book" className="btn btn-ice btn-lg">Book a detail <Arrow /></a>
-          <a href="#services" className="btn btn-lg">See services</a>
-        </div>
+    <header className="hero-v2" id="top">
+      <div className="stage-cinema">
+        <img className="hero-bg-img" src="project/assets/hero-car-dramatic.png" alt="" />
       </div>
-      <div className="hero-car-wrap">
-        <img src="project/assets/hero-car-clean.png" alt="Clean car" />
+      <div className="hero-vignette" />
+      <div className="hero-floor" />
+      <div className="hero-content">
+        <div className="wrap">
+          <h1>Authentic <em>Car Care</em></h1>
+          <p className="lead">Mobile car detailing across Prince Edward Island</p>
+          <div className="hero-cta">
+            <a href="#book" className="btn btn-ice btn-lg">Book a detail <Arrow /></a>
+            <a href="#services" className="btn btn-lg">See services</a>
+          </div>
+        </div>
       </div>
     </header>
   );
