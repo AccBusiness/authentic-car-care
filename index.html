@@ -1631,12 +1631,32 @@ function Booking({ service, addons, total, onChangeService, onToggleAddon, waxAl
 
   const removePhoto = (id) => setPhotos((p) => p.filter((x) => x.id !== id));
 
-  // Read a File as a base64 data URL (so photos can ride along in the POST).
+  // Read a File, shrink it in-browser, and return a base64 JPEG data URL.
+  // Phone photos are ~5MB each; sending them raw overflows the Apps Script
+  // request and the photo gets silently dropped. Resizing to ~1600px keeps
+  // them small (~200KB) and reliable while still clear enough to assess.
   const fileToDataURL = (file) => new Promise((resolve) => {
-    const r = new FileReader();
-    r.onload = () => resolve(r.result);
-    r.onerror = () => resolve(null);
-    r.readAsDataURL(file);
+    const MAX = 1600;          // longest edge, px
+    const QUALITY = 0.8;       // JPEG quality
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      try {
+        let { width, height } = img;
+        if (width > height && width > MAX) { height = Math.round(height * MAX / width); width = MAX; }
+        else if (height > MAX) { width = Math.round(width * MAX / height); height = MAX; }
+        const canvas = document.createElement('canvas');
+        canvas.width = width; canvas.height = height;
+        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+        URL.revokeObjectURL(url);
+        resolve(canvas.toDataURL('image/jpeg', QUALITY));
+      } catch (err) {
+        URL.revokeObjectURL(url);
+        resolve(null);
+      }
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); resolve(null); };
+    img.src = url;
   });
 
   const submit = async () => {
