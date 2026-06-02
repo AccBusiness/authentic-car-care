@@ -795,34 +795,14 @@ footer {
   text-align: left;
   line-height: 0.92;
 }
-/* The standalone centered logo is desktop-hidden (lockup is used instead) */
+/* The standalone centered logo is no longer used — lockup is used everywhere */
 .intro-logo { display: none; }
 
-/* ===== MOBILE: exactly the approved version — centered logo in the gap,
-   title back to its normal centered single block (no lockup) ===== */
+/* ===== MOBILE: same lockup, sized to fit the narrow screen ===== */
 @media (max-width: 720px){
-  .intro-lockup-mark { display: none; }          /* drop the beside-title logo */
-  .intro-lockup .intro-h1 { text-align: center; } /* re-center the name */
-
-  .intro-logo {
-    display: block;
-    position: absolute;
-    top: 38%;
-    left: 50%;
-    z-index: 5;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 1.4s ease;
-  }
-  .intro-logo img {
-    width: min(34vw, 150px);
-    height: min(34vw, 150px);
-    object-fit: contain;
-  }
-  .intro-p1 .intro-logo,
-  .intro-p2 .intro-logo { opacity: 1; }
-  .intro-p3 .intro-logo { opacity: 0; transition-duration: 0.8s; }
+  .intro-lockup { gap: 10px; padding: 0 6px; }
+  .intro-lockup-mark { width: clamp(46px, 14vw, 70px); height: clamp(46px, 14vw, 70px); }
+  .intro-lockup .intro-h1 { font-size: clamp(32px, 10.5vw, 50px); }
 }
 
 /* --- Skip Hint --- */
