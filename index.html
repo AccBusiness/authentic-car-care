@@ -1755,7 +1755,7 @@ function Booking({ service, addons, total, onChangeService, onToggleAddon, waxAl
           <BookSummary service={service} addons={addons} total={total} form={form} photos={photos} />
         </div>
       </div>
-      {submitted && <div className="toast">✓ Booking sent — we'll text you within an hour.</div>}
+      {submitted && <div className="toast">✓ Booking sent — we'll be in touch soon to confirm.</div>}
     </section>
   );
 }
@@ -2075,7 +2075,7 @@ function FAQ() {
             <div className="section-kicker">/ 04 — FAQ</div>
             <h2 className="display">The <em>questions</em> we hear most.</h2>
           </div>
-          <div className="sub">Don't see your question? Text us at (902) 213-0825 — we usually reply within an hour.</div>
+          <div className="sub">Don't see your question? Text us at (902) 213-0825 — we'll get back to you as soon as we can.</div>
         </div>
         <div className="faq-list">
           {FAQ_ITEMS.map((f, i) => (
