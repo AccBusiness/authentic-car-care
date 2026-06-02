@@ -777,43 +777,29 @@ footer {
 }
 
 /* --- Intro Logo --- */
-/* MOBILE (base): logo centered in the gap between title and car. */
-.intro-logo {
-  position: absolute;
-  top: 38%;
-  left: 50%;
-  z-index: 5;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 1.4s ease;
+/* --- Intro brand lockup: logo beside the name, sized in proportion --- */
+.intro-lockup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(14px, 1.8vw, 30px);
 }
-.intro-logo img {
-  width: min(34vw, 150px);
-  height: min(34vw, 150px);
+.intro-lockup-mark {
+  /* scales with the stacked title so it always matches the cap height */
+  width: clamp(72px, 13vw, 168px);
+  height: clamp(72px, 13vw, 168px);
   object-fit: contain;
+  flex-shrink: 0;
 }
-/* DESKTOP only: place the logo beside the car (kept close, not far off). */
-@media (min-width: 721px){
-  .intro-logo {
-    top: 50%;
-    left: 27%;
-    transform: translate(-50%, -50%);
-  }
-  .intro-logo img {
-    width: min(24vw, 220px);
-    height: min(24vw, 220px);
-  }
+.intro-lockup .intro-h1 {
+  margin: 0;
+  text-align: left;
+  line-height: 0.92;
 }
-.intro-p1 .intro-logo {
-  opacity: 1;
-}
-.intro-p2 .intro-logo {
-  opacity: 1;
-}
-.intro-p3 .intro-logo {
-  opacity: 0;
-  transition-duration: 0.8s;
+@media (max-width: 720px){
+  .intro-lockup { gap: 10px; padding: 0 8px; }
+  .intro-lockup-mark { width: clamp(48px, 15vw, 64px); height: clamp(48px, 15vw, 64px); }
+  .intro-lockup .intro-h1 { font-size: clamp(34px, 11vw, 52px); }
 }
 
 /* --- Skip Hint --- */
@@ -988,15 +974,14 @@ function IntroAnimation({ onReveal, onComplete }) {
         <img src="project/assets/hero-car-clean.png" alt="" />
       </div>
 
-      <div className="intro-logo">
-        <img src="project/assets/logo-glyph.png" alt="" />
-      </div>
-
       <div className="intro-hero">
         <div className="intro-hero-inner">
-          <h1 className="display intro-h1">
-            <span>Authentic</span>{' '}<em>Car Care</em>
-          </h1>
+          <div className="intro-lockup">
+            <img className="intro-lockup-mark" src="project/assets/logo-glyph.png" alt="" />
+            <h1 className="display intro-h1">
+              <span>Authentic</span><br /><em>Car Care</em>
+            </h1>
+          </div>
           <p className="intro-sub">Mobile detailing across Prince Edward Island</p>
         </div>
       </div>
