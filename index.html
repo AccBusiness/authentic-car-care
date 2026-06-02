@@ -999,6 +999,12 @@ function IntroAnimation({ onReveal, onComplete }) {
 /* ========== Authentic Car Care — main React app ========== */
 const { useState, useEffect, useRef, useMemo, useCallback } = React;
 
+/* ---------- Booking backend ----------
+   Paste your Google Apps Script Web App URL between the quotes below.
+   Until you do, the form will still show the success message (demo mode)
+   but won't send anywhere. Setup steps: backend/SETUP.md */
+const BOOKING_ENDPOINT = '';
+
 /* ---------- Data ---------- */
 const SERVICES = [
   {
@@ -1614,18 +1620,58 @@ function Booking({ service, addons, total, onChangeService, onToggleAddon, waxAl
 
   const onFiles = (files) => {
     const arr = Array.from(files).slice(0, 6);
-    const next = arr.map((f) => ({ id: Math.random().toString(36).slice(2, 9), url: URL.createObjectURL(f) }));
+    const next = arr.map((f) => ({ id: Math.random().toString(36).slice(2, 9), url: URL.createObjectURL(f), file: f }));
     setPhotos((p) => [...p, ...next].slice(0, 6));
   };
 
   const removePhoto = (id) => setPhotos((p) => p.filter((x) => x.id !== id));
 
-  const submit = () => {
+  // Read a File as a base64 data URL (so photos can ride along in the POST).
+  const fileToDataURL = (file) => new Promise((resolve) => {
+    const r = new FileReader();
+    r.onload = () => resolve(r.result);
+    r.onerror = () => resolve(null);
+    r.readAsDataURL(file);
+  });
+
+  const submit = async () => {
+    // Always give instant feedback + reset, like before.
+    const snapshot = { ...form };
+    const snapPhotos = photos.slice();
+    const addonNames = ADDONS.filter((a) => addons[a.id]).map((a) => a.name).join(', ');
+
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 3500);
     setStep(1);
     setForm({ name: '', email: '', phone: '', address: '', vehicle: '', date: '', time: '', notes: '' });
     setPhotos([]);
+
+    // If no backend is configured yet, stop here (demo mode).
+    if (!BOOKING_ENDPOINT) return;
+
+    try {
+      const photoData = (await Promise.all(
+        snapPhotos.map((p) => (p.file ? fileToDataURL(p.file) : null))
+      )).filter(Boolean);
+
+      const payload = {
+        ...snapshot,
+        service: service?.name || '',
+        addons: addonNames || '—',
+        total: fmt(total),
+        photos: photoData,
+      };
+
+      // text/plain avoids a CORS preflight against Apps Script.
+      await fetch(BOOKING_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload),
+      });
+    } catch (err) {
+      // Lead still saw success; this just logs for debugging.
+      console.error('Booking send failed:', err);
+    }
   };
 
   const canAdvance =
