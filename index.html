@@ -777,7 +777,7 @@ footer {
 }
 
 /* --- Intro Logo --- */
-/* --- Intro brand lockup: logo beside the name, sized in proportion --- */
+/* ===== DESKTOP: brand lockup — logo beside the stacked name ===== */
 .intro-lockup {
   display: flex;
   align-items: center;
@@ -785,7 +785,6 @@ footer {
   gap: clamp(14px, 1.8vw, 30px);
 }
 .intro-lockup-mark {
-  /* scales with the stacked title so it always matches the cap height */
   width: clamp(72px, 13vw, 168px);
   height: clamp(72px, 13vw, 168px);
   object-fit: contain;
@@ -796,10 +795,34 @@ footer {
   text-align: left;
   line-height: 0.92;
 }
+/* The standalone centered logo is desktop-hidden (lockup is used instead) */
+.intro-logo { display: none; }
+
+/* ===== MOBILE: exactly the approved version — centered logo in the gap,
+   title back to its normal centered single block (no lockup) ===== */
 @media (max-width: 720px){
-  .intro-lockup { gap: 10px; padding: 0 8px; }
-  .intro-lockup-mark { width: clamp(48px, 15vw, 64px); height: clamp(48px, 15vw, 64px); }
-  .intro-lockup .intro-h1 { font-size: clamp(34px, 11vw, 52px); }
+  .intro-lockup-mark { display: none; }          /* drop the beside-title logo */
+  .intro-lockup .intro-h1 { text-align: center; } /* re-center the name */
+
+  .intro-logo {
+    display: block;
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    z-index: 5;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 1.4s ease;
+  }
+  .intro-logo img {
+    width: min(34vw, 150px);
+    height: min(34vw, 150px);
+    object-fit: contain;
+  }
+  .intro-p1 .intro-logo,
+  .intro-p2 .intro-logo { opacity: 1; }
+  .intro-p3 .intro-logo { opacity: 0; transition-duration: 0.8s; }
 }
 
 /* --- Skip Hint --- */
@@ -972,6 +995,10 @@ function IntroAnimation({ onReveal, onComplete }) {
     <div className={`intro intro-p${phase}`} onClick={skip}>
       <div className="intro-car">
         <img src="project/assets/hero-car-clean.png" alt="" />
+      </div>
+
+      <div className="intro-logo">
+        <img src="project/assets/logo-glyph.png" alt="" />
       </div>
 
       <div className="intro-hero">
