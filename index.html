@@ -792,6 +792,19 @@ footer {
   height: min(30vw, 240px);
   object-fit: contain;
 }
+/* On phones/tablets the fixed -2in offset pushed the logo off-screen
+   and clipped it. Center it behind the car instead. */
+@media (max-width: 900px){
+  .intro-logo {
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .intro-logo img {
+    width: min(60vw, 300px);
+    height: min(60vw, 300px);
+    opacity: 0.12;
+  }
+}
 .intro-p1 .intro-logo {
   opacity: 1;
 }
