@@ -777,33 +777,25 @@ footer {
 }
 
 /* --- Intro Logo --- */
+/* Logo sits centered in the gap between the title and the car. */
 .intro-logo {
   position: absolute;
-  top: 50%;
-  left: calc(25% - 2in);
+  top: 34%;
+  left: 50%;
   z-index: 5;
-  transform: translateY(-50%);
+  transform: translate(-50%, -50%);
   pointer-events: none;
   opacity: 0;
   transition: opacity 1.4s ease;
 }
 .intro-logo img {
-  width: min(30vw, 240px);
-  height: min(30vw, 240px);
+  width: min(26vw, 150px);
+  height: min(26vw, 150px);
   object-fit: contain;
 }
-/* On phones/tablets the fixed -2in offset pushed the logo off-screen
-   and clipped it. Center it behind the car instead. */
-@media (max-width: 900px){
-  .intro-logo {
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  .intro-logo img {
-    width: min(60vw, 300px);
-    height: min(60vw, 300px);
-    opacity: 0.12;
-  }
+@media (max-width: 720px){
+  .intro-logo { top: 38%; }
+  .intro-logo img { width: min(34vw, 150px); height: min(34vw, 150px); }
 }
 .intro-p1 .intro-logo {
   opacity: 1;
