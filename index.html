@@ -1680,12 +1680,17 @@ function Booking({ service, addons, total, onChangeService, onToggleAddon, waxAl
     try {
       // Process photos ONE AT A TIME, not all at once. Decoding several
       // full-size phone images simultaneously can exhaust a phone's memory
-      // and silently drop one — sequential keeps every photo.
+      // and silently drop one — sequential keeps every photo. We also pause
+      // briefly between photos (lets the browser reclaim memory) and retry
+      // once if a photo fails, so nothing is lost on memory-tight phones.
+      const pause = (ms) => new Promise((r) => setTimeout(r, ms));
       const photoData = [];
       for (const p of snapPhotos) {
         if (!p.file) continue;
-        const d = await fileToDataURL(p.file);
+        let d = await fileToDataURL(p.file);
+        if (!d) { await pause(250); d = await fileToDataURL(p.file); } // one retry
         if (d) photoData.push(d);
+        await pause(120); // let the phone free memory before the next photo
       }
 
       const payload = {
