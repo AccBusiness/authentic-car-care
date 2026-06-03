@@ -1633,11 +1633,11 @@ function Booking({ service, addons, total, onChangeService, onToggleAddon, waxAl
 
   // Read a File, shrink it in-browser, and return a base64 JPEG data URL.
   // Phone photos are ~5MB each; sending them raw overflows the Apps Script
-  // request and the photo gets silently dropped. Resizing to ~1600px keeps
+  // request and the photo gets silently dropped. Resizing to ~1400px keeps
   // them small (~200KB) and reliable while still clear enough to assess.
   const fileToDataURL = (file) => new Promise((resolve) => {
-    const MAX = 1600;          // longest edge, px
-    const QUALITY = 0.8;       // JPEG quality
+    const MAX = 1400;          // longest edge, px
+    const QUALITY = 0.78;      // JPEG quality
     const img = new Image();
     const url = URL.createObjectURL(file);
     img.onload = () => {
@@ -1648,8 +1648,11 @@ function Booking({ service, addons, total, onChangeService, onToggleAddon, waxAl
         const canvas = document.createElement('canvas');
         canvas.width = width; canvas.height = height;
         canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+        const out = canvas.toDataURL('image/jpeg', QUALITY);
+        // free memory before the next photo
+        canvas.width = canvas.height = 0;
         URL.revokeObjectURL(url);
-        resolve(canvas.toDataURL('image/jpeg', QUALITY));
+        resolve(out);
       } catch (err) {
         URL.revokeObjectURL(url);
         resolve(null);
@@ -1675,9 +1678,15 @@ function Booking({ service, addons, total, onChangeService, onToggleAddon, waxAl
     if (!BOOKING_ENDPOINT) return;
 
     try {
-      const photoData = (await Promise.all(
-        snapPhotos.map((p) => (p.file ? fileToDataURL(p.file) : null))
-      )).filter(Boolean);
+      // Process photos ONE AT A TIME, not all at once. Decoding several
+      // full-size phone images simultaneously can exhaust a phone's memory
+      // and silently drop one — sequential keeps every photo.
+      const photoData = [];
+      for (const p of snapPhotos) {
+        if (!p.file) continue;
+        const d = await fileToDataURL(p.file);
+        if (d) photoData.push(d);
+      }
 
       const payload = {
         ...snapshot,
