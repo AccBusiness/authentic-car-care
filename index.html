@@ -1619,14 +1619,45 @@ function Booking({ service, addons, total, onChangeService, onToggleAddon, waxAl
   const [photos, setPhotos] = useS([]);
   const [dragging, setDragging] = useS(false);
   const [submitted, setSubmitted] = useS(false);
+  const [photoWarning, setPhotoWarning] = useS('');
   const inputRef = useR(null);
 
   const update = (k, v) => setForm((f) => ({ ...f, [k]: v }));
 
-  const onFiles = (files) => {
+  // Check a file can actually be decoded as an image. HEIC (iPhone default)
+  // and Live Photo .mov clips can't be drawn to canvas, so they'd silently
+  // fail later — we catch them here and tell the customer right away.
+  const canDecode = (file) => new Promise((resolve) => {
+    if (!file.type.startsWith('image/') || /heic|heif/i.test(file.type) || /\.(heic|heif|mov)$/i.test(file.name)) {
+      return resolve(false);
+    }
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => { URL.revokeObjectURL(url); resolve(true); };
+    img.onerror = () => { URL.revokeObjectURL(url); resolve(false); };
+    img.src = url;
+  });
+
+  const onFiles = async (files) => {
+    setPhotoWarning('');
     const arr = Array.from(files).slice(0, 6);
-    const next = arr.map((f) => ({ id: Math.random().toString(36).slice(2, 9), url: URL.createObjectURL(f), file: f }));
-    setPhotos((p) => [...p, ...next].slice(0, 6));
+    const accepted = [];
+    let rejected = 0;
+    for (const f of arr) {
+      if (await canDecode(f)) {
+        accepted.push({ id: Math.random().toString(36).slice(2, 9), url: URL.createObjectURL(f), file: f });
+      } else {
+        rejected += 1;
+      }
+    }
+    if (accepted.length) setPhotos((p) => [...p, ...accepted].slice(0, 6));
+    if (rejected) {
+      setPhotoWarning(
+        rejected === 1
+          ? "1 photo couldn't be added (iPhone HEIC or Live Photos aren't supported). Tip: take a screenshot of it and upload that instead — or set Camera → Formats → “Most Compatible”."
+          : `${rejected} photos couldn't be added (iPhone HEIC or Live Photos aren't supported). Tip: upload screenshots of them instead.`
+      );
+    }
   };
 
   const removePhoto = (id) => setPhotos((p) => p.filter((x) => x.id !== id));
@@ -1754,6 +1785,7 @@ function Booking({ service, addons, total, onChangeService, onToggleAddon, waxAl
                 setDragging={setDragging}
                 form={form}
                 update={update}
+                photoWarning={photoWarning}
               />
             )}
             {step === 3 && (
@@ -1853,7 +1885,7 @@ function Step1({ service, addons, onChangeService, onToggleAddon, waxAllowed }) 
   );
 }
 
-function Step2({ inputRef, photos, onFiles, removePhoto, dragging, setDragging, form, update }) {
+function Step2({ inputRef, photos, onFiles, removePhoto, dragging, setDragging, form, update, photoWarning }) {
   return (
     <div>
       <div className="field">
@@ -1890,6 +1922,15 @@ function Step2({ inputRef, photos, onFiles, removePhoto, dragging, setDragging, 
             onChange={(e) => onFiles(e.target.files)}
           />
         </div>
+        {photoWarning && (
+          <div style={{
+            marginTop: 12, padding: '12px 14px', borderRadius: 12,
+            background: 'rgba(214,140,38,0.10)', border: '1px solid rgba(214,140,38,0.35)',
+            color: '#8a5a14', fontSize: 13, lineHeight: 1.5,
+          }}>
+            ⚠ {photoWarning}
+          </div>
+        )}
         {photos.length > 0 && (
           <div className="photo-grid">
             {photos.map((p, i) => (
