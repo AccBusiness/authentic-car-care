@@ -33,10 +33,15 @@ function doPost(e) {
 
     // 3) ---- Save photos to Drive (if any) ----
     var photoLinks = [];
+    var bookingFolderUrl = '';
     if (data.photos && data.photos.length) {
-      var folder = getOrCreateFolder_(DRIVE_FOLDER_NAME);
+      var parentFolder = getOrCreateFolder_(DRIVE_FOLDER_NAME);
       var stamp = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd_HH-mm');
-      var safeName = (data.name || 'lead').replace(/[^a-zA-Z0-9]/g, '_');
+      var safeName = (data.name || 'lead').replace(/[^a-zA-Z0-9 ]/g, '').trim() || 'lead';
+      // One subfolder per booking, named after the customer + date.
+      var bookingFolder = parentFolder.createFolder(safeName + ' — ' + stamp);
+      bookingFolder.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+      bookingFolderUrl = bookingFolder.getUrl();
       data.photos.forEach(function (p, i) {
         try {
           var parts = p.split(',');                 // data:image/jpeg;base64,XXXX
@@ -45,8 +50,8 @@ function doPost(e) {
           var mime = meta.substring(meta.indexOf(':') + 1, meta.indexOf(';')) || 'image/jpeg';
           var ext = mime.split('/')[1] || 'jpg';
           var blob = Utilities.newBlob(Utilities.base64Decode(b64), mime,
-                       stamp + '_' + safeName + '_' + (i + 1) + '.' + ext);
-          var file = folder.createFile(blob);
+                       safeName + '_' + (i + 1) + '.' + ext);
+          var file = bookingFolder.createFile(blob);
           file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
           photoLinks.push(file.getUrl());
         } catch (errPhoto) {
@@ -60,7 +65,8 @@ function doPost(e) {
       data.name || '', data.phone || '', data.email || '', data.address || '',
       data.vehicle || '', data.service || '', data.addons || '', data.total || '',
       data.date || '', data.time || '', data.notes || '',
-      photoLinks.join('\n')
+      // Link to the customer's folder first, then the individual photo links.
+      (bookingFolderUrl ? 'Folder: ' + bookingFolderUrl + '\n' : '') + photoLinks.join('\n')
     ];
     sheet.appendRow(row);
 
@@ -78,6 +84,7 @@ function doPost(e) {
       'Date:      ' + (data.date || '') + '\n' +
       'Time:      ' + (data.time || '') + '\n' +
       'Notes:     ' + (data.notes || '—') + '\n' +
+      (bookingFolderUrl ? '\nPhoto folder: ' + bookingFolderUrl + '\n' : '') +
       (photoLinks.length ? '\nPhotos:\n' + photoLinks.join('\n') + '\n' : '') +
       '\n— sent automatically from authenticcarcare website';
 

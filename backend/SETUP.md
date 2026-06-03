@@ -57,8 +57,9 @@ Do this once. ~15 minutes.
 Open your live site, fill out the booking form, and submit. Within a few seconds:
 - a new row appears in your Google Sheet,
 - you get an email,
-- any photos show up in a Drive folder called
-  "Authentic Car Care — booking photos".
+- photos are saved inside a per-customer subfolder (e.g. "Artur Caron — 2026-06-03")
+  within the main "Authentic Car Care — booking photos" folder. The Sheet row
+  and email both include a direct link to that customer's folder.
 
 ## If you change the script later
 Apps Script → **Deploy** → **Manage deployments** → edit (pencil) →
